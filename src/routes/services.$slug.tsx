@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowUpRight, Check, ArrowLeft } from "lucide-react";
-import { services } from "@/lib/services-data";
+import { services, type Service } from "@/lib/services-data";
 
 const SITE_URL = "https://edge-intelliflow.lovable.app";
 
@@ -57,7 +57,7 @@ export const Route = createFileRoute("/services/$slug")({
 });
 
 function ServiceDetail() {
-  const { service: s } = Route.useLoaderData();
+  const { service: s } = Route.useLoaderData() as { service: Service };
   return (
     <>
       <section className="border-b border-border bg-background">
