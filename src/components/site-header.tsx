@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/astrointelli-logo.asset.json";
+import { GoogleTranslate } from "./google-translate";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -32,7 +33,8 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-4 md:flex">
+          <GoogleTranslate />
           <Link
             to="/contact"
             className="inline-flex items-center gap-2 bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
@@ -62,6 +64,9 @@ export function SiteHeader() {
                 {n.label}
               </Link>
             ))}
+            <div className="mt-3 border-t border-border pt-4">
+              <GoogleTranslate />
+            </div>
             <Link
               to="/contact"
               onClick={() => setOpen(false)}
