@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Cpu, Brain, Radio, Wrench, Cloud, Smartphone, Factory, HeartPulse } from "lucide-react";
 import { services } from "@/lib/services-data";
 
+const SITE_URL = "https://edge-intelliflow.lovable.app";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -9,6 +11,26 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Embedded systems, Edge AI, and AIoT product development for industrial and healthcare innovation." },
       { property: "og:title", content: "AstroIntelli Technologies — Engineering Intelligent Futures" },
       { property: "og:description", content: "Embedded + AI product development from concept to deployment." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL + "/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "AstroIntelli Technologies — Engineering Intelligent Futures" },
+      { name: "twitter:description", content: "Embedded + AI product development from concept to deployment." },
+    ],
+    links: [{ rel: "canonical", href: SITE_URL + "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "AstroIntelli Technologies",
+          url: SITE_URL,
+          slogan: "Intelligence at the Edge. Innovation Everywhere.",
+          description: "Embedded systems, Edge AI, and AIoT product development.",
+          sameAs: [],
+        }),
+      },
     ],
   }),
   component: HomePage,
@@ -32,8 +54,7 @@ function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 grid-bg opacity-60" aria-hidden />
+      <section className="relative overflow-hidden border-b border-border bg-background">
         <div className="absolute -right-32 top-1/2 hidden h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-brand/10 blur-3xl md:block" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-5 pt-20 pb-24 md:px-8 md:pt-32 md:pb-36">
           <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-muted-foreground animate-rise">
@@ -110,8 +131,8 @@ function HomePage() {
               return (
                 <Link
                   key={s.slug}
-                  to="/services"
-                  hash={s.slug}
+                  to="/services/$slug"
+                  params={{ slug: s.slug }}
                   className="group relative flex flex-col gap-6 bg-background p-8 transition-colors hover:bg-foreground hover:text-background"
                 >
                   <div className="flex items-center justify-between">
