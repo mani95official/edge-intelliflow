@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Check } from "lucide-react";
 import { services } from "@/lib/services-data";
 
+const SITE_URL = "https://edge-intelliflow.lovable.app";
+
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
@@ -9,6 +11,27 @@ export const Route = createFileRoute("/services")({
       { name: "description", content: "Embedded systems, Edge AI, AIoT, cloud, mobile, industrial automation, and healthcare technology services." },
       { property: "og:title", content: "Services — AstroIntelli Technologies" },
       { property: "og:description", content: "Eight capability areas across embedded, AI, IoT and cloud." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL + "/services" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Services — AstroIntelli Technologies" },
+      { name: "twitter:description", content: "Eight capability areas across embedded, AI, IoT and cloud." },
+    ],
+    links: [{ rel: "canonical", href: SITE_URL + "/services" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          itemListElement: services.map((s, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: s.title,
+            url: `${SITE_URL}/services/${s.slug}`,
+          })),
+        }),
+      },
     ],
   }),
   component: ServicesPage,
@@ -17,8 +40,7 @@ export const Route = createFileRoute("/services")({
 function ServicesPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 grid-bg opacity-50" aria-hidden />
+      <section className="relative overflow-hidden border-b border-border bg-background">
         <div className="relative mx-auto max-w-7xl px-5 pt-24 pb-16 md:px-8 md:pt-32">
           <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
             <span className="text-brand">§</span> Services / 01 — 08
@@ -42,12 +64,21 @@ function ServicesPage() {
                   <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">{s.title}</h2>
                   <p className="mt-3 font-display italic text-muted-foreground md:text-lg">{s.tagline}</p>
                   <p className="mt-6 text-muted-foreground">{s.description}</p>
-                  <Link
-                    to="/contact"
-                    className="mt-8 inline-flex items-center gap-2 text-sm font-medium underline-offset-4 hover:underline"
-                  >
-                    Discuss this service <ArrowUpRight className="size-4" />
-                  </Link>
+                  <div className="mt-8 flex flex-wrap gap-4">
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: s.slug }}
+                      className="inline-flex items-center gap-2 bg-foreground px-5 py-3 text-sm font-medium text-background hover:-translate-y-0.5 transition-transform"
+                    >
+                      View details <ArrowUpRight className="size-4" />
+                    </Link>
+                    <Link
+                      to="/contact"
+                      className="inline-flex items-center gap-2 border border-border px-5 py-3 text-sm font-medium hover:border-foreground"
+                    >
+                      Discuss this service
+                    </Link>
+                  </div>
                 </div>
                 <ul className="md:col-span-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
                   {s.items.map((item) => (

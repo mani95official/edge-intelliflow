@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+const SITE_URL = "https://edge-intelliflow.lovable.app";
+
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
@@ -7,6 +9,23 @@ export const Route = createFileRoute("/about")({
       { name: "description", content: "AstroIntelli engineers embedded + AI products with a focus on industrial and healthcare innovation." },
       { property: "og:title", content: "About — AstroIntelli Technologies" },
       { property: "og:description", content: "Embedded + AI under one roof. Intelligence at the Edge." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL + "/about" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "About — AstroIntelli Technologies" },
+      { name: "twitter:description", content: "Embedded + AI under one roof. Intelligence at the Edge." },
+    ],
+    links: [{ rel: "canonical", href: SITE_URL + "/about" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          name: "About AstroIntelli Technologies",
+          url: SITE_URL + "/about",
+        }),
+      },
     ],
   }),
   component: AboutPage,
@@ -22,8 +41,7 @@ const principles = [
 function AboutPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 grid-bg opacity-50" aria-hidden />
+      <section className="relative overflow-hidden border-b border-border bg-background">
         <div className="relative mx-auto max-w-7xl px-5 pt-24 pb-20 md:px-8 md:pt-32 md:pb-28">
           <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
             <span className="text-brand">§</span> About
