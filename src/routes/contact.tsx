@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Mail, MapPin, ArrowUpRight } from "lucide-react";
 
+const SITE_URL = "https://edge-intelliflow.lovable.app";
+
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
@@ -9,6 +11,24 @@ export const Route = createFileRoute("/contact")({
       { name: "description", content: "Start a project, request a workshop, or talk to our engineering team." },
       { property: "og:title", content: "Contact — AstroIntelli Technologies" },
       { property: "og:description", content: "Let's build intelligent products together." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL + "/contact" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Contact — AstroIntelli Technologies" },
+      { name: "twitter:description", content: "Let's build intelligent products together." },
+    ],
+    links: [{ rel: "canonical", href: SITE_URL + "/contact" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          name: "Contact AstroIntelli",
+          url: SITE_URL + "/contact",
+          email: "hello@astrointelli.tech",
+        }),
+      },
     ],
   }),
   component: ContactPage,
@@ -20,8 +40,7 @@ function ContactPage() {
   const [sent, setSent] = useState(false);
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 grid-bg opacity-50" aria-hidden />
+      <section className="relative overflow-hidden border-b border-border bg-background">
         <div className="relative mx-auto max-w-7xl px-5 pt-24 pb-16 md:px-8 md:pt-32">
           <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
             <span className="text-brand">§</span> Contact
