@@ -122,3 +122,21 @@
 @utility animate-rise {
   animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* Google Translate widget styling */
+.gtranslate-wrapper .goog-te-gadget {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted-foreground);
+}
+.gtranslate-wrapper .goog-te-gadget-simple {
+  background: transparent !important;
+  border: 1px solid var(--border) !important;
+  padding: 4px 8px !important;
+  border-radius: 2px;
+  font-size: 12px !important;
+}
+.gtranslate-wrapper img { display: none !important; }
+body { top: 0 !important; }
+.skiptranslate iframe.goog-te-banner-frame { display: none !important; }
+.goog-te-banner-frame.skiptranslate { display: none !important; }
