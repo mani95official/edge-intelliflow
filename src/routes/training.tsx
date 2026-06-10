@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GraduationCap, Cpu, Brain, Wifi, Code2, Sigma, CircuitBoard } from "lucide-react";
 
+const SITE_URL = "https://edge-intelliflow.lovable.app";
+
 export const Route = createFileRoute("/training")({
   head: () => ({
     meta: [
@@ -8,6 +10,24 @@ export const Route = createFileRoute("/training")({
       { name: "description", content: "Industry-focused training in ESP32, embedded systems, Edge AI, TinyML, AIoT and Python for IoT." },
       { property: "og:title", content: "Training & Workshops — AstroIntelli" },
       { property: "og:description", content: "Practical, project-based training programs for engineers and students." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL + "/training" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Training & Workshops — AstroIntelli" },
+      { name: "twitter:description", content: "Practical, project-based training in embedded systems and Edge AI." },
+    ],
+    links: [{ rel: "canonical", href: SITE_URL + "/training" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          name: "AstroIntelli Training",
+          url: SITE_URL + "/training",
+          description: "Industry-focused workshops on ESP32, TinyML, Edge AI and AIoT.",
+        }),
+      },
     ],
   }),
   component: TrainingPage,
@@ -25,8 +45,7 @@ const topics = [
 function TrainingPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0 grid-bg opacity-50" aria-hidden />
+      <section className="relative overflow-hidden border-b border-border bg-background">
         <div className="relative mx-auto max-w-7xl px-5 pt-24 pb-16 md:px-8 md:pt-32">
           <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
             <span className="text-brand">§</span> Training & Workshops
