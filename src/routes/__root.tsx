@@ -81,11 +81,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "AstroIntelli Technologies — Engineering Intelligent Futures" },
       { name: "description", content: "Embedded systems, Edge AI, and AIoT product development for industrial and healthcare innovation." },
       { name: "author", content: "AstroIntelli Technologies" },
-      { property: "og:title", content: "AstroIntelli Technologies" },
-      { property: "og:description", content: "Engineering intelligent futures with Embedded + AI." },
+      { property: "og:title", content: "AstroIntelli Technologies — Engineering Intelligent Futures" },
+      { property: "og:description", content: "Embedded systems, Edge AI, and AIoT product development for industrial and healthcare innovation." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@AstroIntelli" },
+      { name: "twitter:title", content: "AstroIntelli Technologies — Engineering Intelligent Futures" },
+      { name: "twitter:description", content: "Embedded systems, Edge AI, and AIoT product development for industrial and healthcare innovation." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b927f5e5-c3e4-43f1-afd6-265de19b4b81/id-preview-e218eeae--223d8cea-b23c-4852-8b8c-08a5fcde5fcb.lovable.app-1781079538140.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b927f5e5-c3e4-43f1-afd6-265de19b4b81/id-preview-e218eeae--223d8cea-b23c-4852-8b8c-08a5fcde5fcb.lovable.app-1781079538140.png" },
     ],
     links: [
       {
