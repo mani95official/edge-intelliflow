@@ -172,7 +172,7 @@ function HomePage() {
             Intelligence at the Edge · Est. 2026
           </div>
           <div className="mt-8 mb-4 animate-rise">
-            <Logo className="h-12 md:h-16 w-auto text-foreground" repeat={true} />
+            <Logo className="h-8 md:h-8 w-auto text-foreground" repeat={true} />
           </div>
           <h1 className="mt-4 max-w-5xl text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl lg:text-8xl animate-rise">
             Engineering
