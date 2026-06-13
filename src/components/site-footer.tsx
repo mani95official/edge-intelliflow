@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import logo from "@/assets/astrointelli-logo.asset.json";
+import { services } from "@/lib/services-data";
 
 export function SiteFooter() {
   return (
@@ -29,11 +30,17 @@ export function SiteFooter() {
           <div className="md:col-span-2">
             <h4 className="text-xs font-mono uppercase tracking-widest text-background/50">Capabilities</h4>
             <ul className="mt-4 space-y-3 text-sm text-background/80">
-              <li>Embedded Systems</li>
-              <li>Edge AI / TinyML</li>
-              <li>AIoT Platforms</li>
-              <li>Cloud Backends</li>
-              <li>Healthcare Tech</li>
+              {services.map((s) => (
+                <li key={s.slug}>
+                  <Link
+                    to="/services/$slug"
+                    params={{ slug: s.slug }}
+                    className="hover:text-brand"
+                  >
+                    {s.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
           <div className="md:col-span-3">
