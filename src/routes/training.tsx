@@ -72,7 +72,7 @@ function TrainingPage() {
                     </span>
                     <Icon className="size-5 text-brand" />
                   </div>
-                  <h3 className="text-xl font-semibold">{t.title}</h3>
+                  <h2 className="text-xl font-semibold">{t.title}</h2>
                   <p className="text-sm text-muted-foreground group-hover:text-background/70">{t.desc}</p>
                 </div>
               );

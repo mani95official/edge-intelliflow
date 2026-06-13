@@ -7,14 +7,14 @@ const SITE_URL = "https://edge-intelliflow.lovable.app";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AstroIntelli Technologies — Engineering Intelligent Futures" },
+      { title: "AstroIntelli — Engineering Intelligent Futures" },
       { name: "description", content: "Embedded systems, Edge AI, and AIoT product development for industrial and healthcare innovation." },
-      { property: "og:title", content: "AstroIntelli Technologies — Engineering Intelligent Futures" },
+      { property: "og:title", content: "AstroIntelli — Engineering Intelligent Futures" },
       { property: "og:description", content: "Embedded + AI product development from concept to deployment." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL + "/" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "AstroIntelli Technologies — Engineering Intelligent Futures" },
+      { name: "twitter:title", content: "AstroIntelli — Engineering Intelligent Futures" },
       { name: "twitter:description", content: "Embedded + AI product development from concept to deployment." },
     ],
     links: [{ rel: "canonical", href: SITE_URL + "/" }],
@@ -145,7 +145,7 @@ function HomePage() {
                   <h3 className="text-xl font-semibold leading-tight">{s.title}</h3>
                   <p className="text-sm text-muted-foreground group-hover:text-background/70">{s.tagline}</p>
                   <span className="mt-auto inline-flex items-center text-sm font-medium">
-                    Learn more <ArrowUpRight className="ml-1 size-4 transition-transform group-hover:rotate-45" />
+                    View {s.title} details <ArrowUpRight className="ml-1 size-4 transition-transform group-hover:rotate-45" />
                   </span>
                 </Link>
               );
