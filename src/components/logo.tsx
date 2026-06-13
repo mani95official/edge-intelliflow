@@ -2,15 +2,16 @@ import React from "react";
 
 interface LogoProps extends React.SVGProps<SVGSVGElement> {
   className?: string;
+  repeat?: boolean;
 }
 
-export function Logo({ className, ...props }: LogoProps) {
+export function Logo({ className, repeat = false, ...props }: LogoProps) {
   return (
     <svg
       viewBox="0 0 1195 192"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={`logo-container ${className || ""}`}
+      className={`logo-container ${repeat ? "repeat-animation" : ""} ${className || ""}`}
       {...props}
     >
       <style>{`
@@ -29,6 +30,33 @@ export function Logo({ className, ...props }: LogoProps) {
           }
         }
 
+        @keyframes bounceInRepeat {
+          0% {
+            opacity: 0;
+            transform: scale(0.3) translateY(-10px);
+          }
+          4.17% {
+            opacity: 0.8;
+            transform: scale(1.02) translateY(1px);
+          }
+          8.33% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+          80% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+          85% {
+            opacity: 0.5;
+            transform: scale(0.9) translateY(-2px);
+          }
+          90%, 100% {
+            opacity: 0;
+            transform: scale(0.3) translateY(-10px);
+          }
+        }
+
         @keyframes drawIn {
           from {
             opacity: 0;
@@ -37,6 +65,25 @@ export function Logo({ className, ...props }: LogoProps) {
           to {
             opacity: 1;
             transform: scaleY(1);
+          }
+        }
+
+        @keyframes drawInRepeat {
+          0% {
+            opacity: 0;
+            transform: scaleY(0);
+          }
+          10% {
+            opacity: 1;
+            transform: scaleY(1);
+          }
+          80% {
+            opacity: 1;
+            transform: scaleY(1);
+          }
+          90%, 100% {
+            opacity: 0;
+            transform: scaleY(0);
           }
         }
 
@@ -93,6 +140,23 @@ export function Logo({ className, ...props }: LogoProps) {
           animation: bounceIn 0.5s ease-out 0.8s both, blink 2s infinite ease-in-out 1.5s;
           transition: fill 0.3s, filter 0.3s, transform 0.3s;
         }
+
+        /* Repeating animation rules */
+        .logo-container.repeat-animation .logo-letter-1 { animation: bounceInRepeat 6s ease-out 0.05s infinite; }
+        .logo-container.repeat-animation .logo-letter-2 { animation: bounceInRepeat 6s ease-out 0.10s infinite; }
+        .logo-container.repeat-animation .logo-letter-3 { animation: bounceInRepeat 6s ease-out 0.15s infinite; }
+        .logo-container.repeat-animation .logo-letter-4 { animation: bounceInRepeat 6s ease-out 0.20s infinite; }
+        .logo-container.repeat-animation .logo-letter-5 { animation: bounceInRepeat 6s ease-out 0.25s infinite; }
+        .logo-container.repeat-animation .logo-letter-6 { animation: bounceInRepeat 6s ease-out 0.30s infinite; }
+        .logo-container.repeat-animation .logo-letter-7 { animation: bounceInRepeat 6s ease-out 0.35s infinite; }
+        .logo-container.repeat-animation .logo-letter-8 { animation: bounceInRepeat 6s ease-out 0.40s infinite; }
+        .logo-container.repeat-animation .logo-letter-9 { animation: bounceInRepeat 6s ease-out 0.45s infinite; }
+
+        .logo-container.repeat-animation .logo-slash-1 { animation: drawInRepeat 6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s infinite; }
+        .logo-container.repeat-animation .logo-slash-2 { animation: drawInRepeat 6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.6s infinite; }
+
+        .logo-container.repeat-animation .logo-i-stem { animation: bounceInRepeat 6s ease-out 0.7s infinite; }
+        .logo-container.repeat-animation .logo-i-dot { animation: bounceInRepeat 6s ease-out 0.8s infinite; }
 
         /* Hover interactions */
         .logo-container:hover .logo-slash-1 {

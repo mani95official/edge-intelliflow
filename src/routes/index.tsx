@@ -8,6 +8,7 @@ import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import { Logo } from "@/components/logo";
 
 const SITE_URL = "https://astrointelli.com";
 
@@ -170,7 +171,10 @@ function HomePage() {
             <span className="inline-block size-1.5 rounded-full bg-brand animate-blink" />
             Intelligence at the Edge · Est. 2026
           </div>
-          <h1 className="mt-8 max-w-5xl text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl lg:text-8xl animate-rise">
+          <div className="mt-8 mb-4 animate-rise">
+            <Logo className="h-12 md:h-16 w-auto text-foreground" repeat={true} />
+          </div>
+          <h1 className="mt-4 max-w-5xl text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl lg:text-8xl animate-rise">
             Engineering
             <br />
             <span className="italic font-display">intelligent</span> futures
