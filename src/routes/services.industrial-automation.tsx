@@ -5,12 +5,12 @@ import { useState, useEffect } from "react";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis } from "recharts";
 import { ServicesSidebar } from "@/components/services-sidebar";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 const s = services.find((x) => x.slug === "industrial-automation")!;
 
 export const Route = createFileRoute("/services/industrial-automation")({
   head: () => {
-    const title = `${s.title} — AstroIntelli Technologies`;
+    const title = `${s.title} — AstroIntelli Tech`;
     const description = s.overview;
     const url = `${SITE_URL}/services/industrial-automation`;
     return {
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/services/industrial-automation")({
             "@type": "Service",
             name: s.title,
             description: s.overview,
-            provider: { "@type": "Organization", name: "AstroIntelli Technologies", url: SITE_URL },
+            provider: { "@type": "Organization", name: "AstroIntelli Tech", url: SITE_URL },
             serviceType: s.title,
             areaServed: s.industries,
             url,
@@ -58,12 +58,12 @@ function IndustrialAutomationDetail() {
       setVibeHistory((prev) => {
         const next = [...prev];
         if (next.length > 20) next.shift();
-        
+
         const baseVibe = (motorLoad / 100) * 2.2;
         const noise = (Math.random() - 0.5) * 0.4;
         const anomalyAdditive = isAnomaly ? 4.5 + Math.random() * 2.0 : 0;
         const finalVibe = parseFloat(Math.max(0.1, baseVibe + noise + anomalyAdditive).toFixed(2));
-        
+
         next.push({ tick: count, val: finalVibe });
         return next;
       });
@@ -86,7 +86,7 @@ function IndustrialAutomationDetail() {
 
         {/* Main Content Column */}
         <div className="md:col-span-9 space-y-16 md:space-y-20">
-          
+
           {/* BACK TO SERVICES & HERO */}
           <div>
             <Link to="/services" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
@@ -98,7 +98,7 @@ function IndustrialAutomationDetail() {
             </h1>
             <p className="mt-4 font-display italic text-muted-foreground md:text-lg">{s.tagline}</p>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">{s.overview}</p>
-            
+
             {/* Tech stack & Industries inline details */}
             <div className="mt-8 grid gap-6 sm:grid-cols-2 border-t border-b border-border py-6">
               <div>
@@ -110,7 +110,7 @@ function IndustrialAutomationDetail() {
                 </ul>
               </div>
               <div>
-                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Target Sectors</div>
+                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Sectors</div>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {s.industries.map((t) => (
                     <li key={t} className="text-xs text-muted-foreground">/ {t}</li>
@@ -135,7 +135,7 @@ function IndustrialAutomationDetail() {
                 <div className="lg:col-span-5 flex flex-col justify-between border border-gray-800 bg-gray-950/60 p-5 rounded">
                   <div>
                     <div className="text-[10px] text-gray-400 uppercase tracking-widest border-b border-gray-900 pb-2">Controls</div>
-                    
+
                     {/* Motor Load Slider */}
                     <div className="mt-4 space-y-1">
                       <div className="flex justify-between text-[10px]">
@@ -175,11 +175,10 @@ function IndustrialAutomationDetail() {
                   <div className="mt-6 pt-4 border-t border-gray-900">
                     <button
                       onClick={() => setIsAnomaly(!isAnomaly)}
-                      className={`w-full font-semibold py-2 text-[10px] border cursor-pointer transition-colors ${
-                        isAnomaly 
-                          ? "bg-red-500/20 border-red-500 text-red-400 font-semibold animate-pulse" 
-                          : "border-gray-850 text-gray-500 hover:text-white"
-                      }`}
+                      className={`w-full font-semibold py-2 text-[10px] border cursor-pointer transition-colors ${isAnomaly
+                        ? "bg-red-500/20 border-red-500 text-red-400 font-semibold animate-pulse"
+                        : "border-gray-850 text-gray-500 hover:text-white"
+                        }`}
                     >
                       {isAnomaly ? "RESET" : "TRIGGER BEARING FAULT"}
                     </button>
@@ -201,8 +200,8 @@ function IndustrialAutomationDetail() {
                         <AreaChart data={vibeHistory}>
                           <defs>
                             <linearGradient id="colorVibe" x1="0" y1="0" x2="0" y2="1">
-                              <stop offset="5%" stopColor={isAnomaly ? "#ef4444" : "#f59e0b"} stopOpacity={0.25}/>
-                              <stop offset="95%" stopColor={isAnomaly ? "#ef4444" : "#f59e0b"} stopOpacity={0}/>
+                              <stop offset="5%" stopColor={isAnomaly ? "#ef4444" : "#f59e0b"} stopOpacity={0.25} />
+                              <stop offset="95%" stopColor={isAnomaly ? "#ef4444" : "#f59e0b"} stopOpacity={0} />
                             </linearGradient>
                           </defs>
                           <XAxis dataKey="tick" hide />
@@ -211,7 +210,7 @@ function IndustrialAutomationDetail() {
                         </AreaChart>
                       </ResponsiveContainer>
                     )}
-                    
+
                     {isAnomaly && (
                       <div className="absolute top-3 right-3 bg-red-600 text-white text-[9px] px-1.5 py-0.5 uppercase tracking-widest font-semibold border border-red-500 animate-pulse">
                         OVER_VIBRATION

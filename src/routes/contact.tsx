@@ -1,20 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail, MapPin, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, ArrowUpRight, Loader2 } from "lucide-react";
+import { HUBSPOT_CONFIG, submitHubSpotForm } from "@/lib/hubspot-service";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — AstroIntelli Technologies" },
+      { title: "Contact — AstroIntelli Tech" },
       { name: "description", content: "Start a project, request a workshop, or talk to our engineering team." },
-      { property: "og:title", content: "Contact — AstroIntelli Technologies" },
+      { property: "og:title", content: "Contact — AstroIntelli Tech" },
       { property: "og:description", content: "Let's build intelligent products together." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL + "/contact" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Contact — AstroIntelli Technologies" },
+      { name: "twitter:title", content: "Contact — AstroIntelli Tech" },
       { name: "twitter:description", content: "Let's build intelligent products together." },
     ],
     links: [{ rel: "canonical", href: SITE_URL + "/contact" }],
@@ -26,7 +27,7 @@ export const Route = createFileRoute("/contact")({
           "@type": "ContactPage",
           name: "Contact AstroIntelli",
           url: SITE_URL + "/contact",
-          email: "hello@astrointelli.tech",
+          email: "hello@astrointelli.com",
         }),
       },
     ],
@@ -38,6 +39,48 @@ const interests = ["Embedded", "Edge AI / TinyML", "AIoT", "Cloud / Backend", "M
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMsg(null);
+
+    const formData = new FormData(e.currentTarget);
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const company = formData.get("company") as string;
+    const message = formData.get("message") as string;
+    const selectedInterests = formData.getAll("interest") as string[];
+
+    const nameParts = name.trim().split(/\s+/);
+    const firstname = nameParts[0] || "";
+    const lastname = nameParts.slice(1).join(" ") || "";
+
+    const interestsStr = selectedInterests.join(", ");
+    const fullMessage = interestsStr
+      ? `[Areas of Interest: ${interestsStr}]\n\n${message}`
+      : message;
+
+    const payload = {
+      email,
+      firstname,
+      lastname,
+      company,
+      message: fullMessage,
+      interests: selectedInterests,
+    };
+
+    const success = await submitHubSpotForm(HUBSPOT_CONFIG.contactFormId, payload);
+    setIsSubmitting(false);
+    if (success) {
+      setSent(true);
+    } else {
+      setErrorMsg("Failed to send message. Please check your connection or contact us directly at hello@astrointelli.com.");
+    }
+  }
+
   return (
     <>
       <section className="relative overflow-hidden border-b border-border bg-background">
@@ -63,14 +106,14 @@ function ContactPage() {
                 <Mail className="mt-1 size-4 text-brand" />
                 <div>
                   <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Email</div>
-                  <a href="mailto:hello@astrointelli.tech" className="text-lg font-medium hover:text-brand">hello@astrointelli.tech</a>
+                  <a href="mailto:hello@astrointelli.com" className="text-lg font-medium hover:text-brand">hello@astrointelli.com</a>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin className="mt-1 size-4 text-brand" />
                 <div>
                   <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Location</div>
-                  <div className="text-lg font-medium">India · Remote-first</div>
+                  <div className="text-lg font-medium">Ramanys Mayuri, Saravanampatti, Coimbatore - 641035, Tamil Nadu, India</div>
                 </div>
               </li>
             </ul>
@@ -92,22 +135,22 @@ function ContactPage() {
               </div>
             ) : (
               <form
-                onSubmit={(e) => { e.preventDefault(); setSent(true); }}
+                onSubmit={handleSubmit}
                 className="grid gap-6"
               >
                 <div className="grid gap-6 md:grid-cols-2">
-                  <Field label="Name" name="name" placeholder="Your name" required />
-                  <Field label="Email" name="email" type="email" placeholder="you@company.com" required />
+                  <Field label="Name" name="name" placeholder="Your name" required disabled={isSubmitting} />
+                  <Field label="Email" name="email" type="email" placeholder="you@company.com" required disabled={isSubmitting} />
                 </div>
-                <Field label="Company" name="company" placeholder="Company / Organisation" />
+                <Field label="Company" name="company" placeholder="Company / Organisation" disabled={isSubmitting} />
 
                 <div>
                   <label className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Interested in</label>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {interests.map((i) => (
                       <label key={i} className="cursor-pointer">
-                        <input type="checkbox" name="interest" value={i} className="peer sr-only" />
-                        <span className="inline-block border border-border px-4 py-2 text-sm transition-colors peer-checked:bg-brand peer-checked:text-white peer-checked:border-brand hover:border-foreground">
+                        <input type="checkbox" name="interest" value={i} className="peer sr-only" disabled={isSubmitting} />
+                        <span className="inline-block border border-border px-4 py-2 text-sm transition-colors peer-checked:bg-brand peer-checked:text-white peer-checked:border-brand hover:border-foreground peer-disabled:opacity-50">
                           {i}
                         </span>
                       </label>
@@ -122,17 +165,34 @@ function ContactPage() {
                     name="message"
                     rows={6}
                     required
+                    disabled={isSubmitting}
                     placeholder="Tell us about the product, problem, or workshop you have in mind."
-                    className="mt-2 w-full border border-border bg-background p-4 text-base outline-none focus:border-brand focus:ring-1 focus:ring-brand"
+                    className="mt-2 w-full border border-border bg-background p-4 text-base outline-none focus:border-brand focus:ring-1 focus:ring-brand disabled:opacity-50"
                   />
                 </div>
 
+                {errorMsg && (
+                  <div className="border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-400 animate-fade-in">
+                    {errorMsg}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="group inline-flex w-fit items-center gap-3 bg-foreground px-6 py-4 text-sm font-medium text-background transition-transform hover:-translate-y-0.5"
+                  disabled={isSubmitting}
+                  className="group inline-flex w-fit items-center gap-3 bg-foreground px-6 py-4 text-sm font-medium text-background transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0 cursor-pointer"
                 >
-                  Send message
-                  <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
+                  {isSubmitting ? (
+                    <>
+                      Sending...
+                      <Loader2 className="size-4 animate-spin" />
+                    </>
+                  ) : (
+                    <>
+                      Send message
+                      <ArrowUpRight className="size-4 transition-transform group-hover:rotate-45" />
+                    </>
+                  )}
                 </button>
               </form>
             )}
@@ -143,7 +203,7 @@ function ContactPage() {
   );
 }
 
-function Field({ label, name, type = "text", placeholder, required }: { label: string; name: string; type?: string; placeholder?: string; required?: boolean }) {
+function Field({ label, name, type = "text", placeholder, required, disabled }: { label: string; name: string; type?: string; placeholder?: string; required?: boolean; disabled?: boolean }) {
   return (
     <div>
       <label htmlFor={name} className="text-xs font-mono uppercase tracking-widest text-muted-foreground">{label}</label>
@@ -153,7 +213,8 @@ function Field({ label, name, type = "text", placeholder, required }: { label: s
         type={type}
         placeholder={placeholder}
         required={required}
-        className="mt-2 w-full border border-border bg-background p-4 text-base outline-none focus:border-brand focus:ring-1 focus:ring-brand"
+        disabled={disabled}
+        className="mt-2 w-full border border-border bg-background p-4 text-base outline-none focus:border-brand focus:ring-1 focus:ring-brand disabled:opacity-50"
       />
     </div>
   );

@@ -1,10 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowUpRight, Cpu, Brain, Radio, Wrench, Cloud, Smartphone, Factory, HeartPulse } from "lucide-react";
+import { ArrowUpRight, Cpu, Brain, Radio, Wrench, Cloud, Smartphone, Factory, HeartPulse, ArrowLeft, ArrowRight } from "lucide-react";
 import { services } from "@/lib/services-data";
 import { useState, useEffect } from "react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, ReferenceLine } from "recharts";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,7 +31,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "AstroIntelli Technologies",
+          name: "AstroIntelli Tech",
           url: SITE_URL,
           slogan: "Intelligence at the Edge. Innovation Everywhere.",
           description: "Embedded systems, Edge AI, and AIoT product development.",
@@ -50,6 +55,51 @@ const stats = [
 const marqueeItems = [
   "ESP32", "STM32", "TensorFlow Lite", "MQTT", "Django", "Flutter",
   "Edge AI", "TinyML", "PCB Design", "Predictive Maintenance", "Healthcare IoT", "Industrial Automation",
+];
+
+const homeArticles = [
+  {
+    slug: "tinyml-hardware-selection-guide",
+    title: "Choosing the Right Hardware for TinyML: ESP32 vs. STM32 vs. Nordic nRF52",
+    category: "Edge AI",
+    date: "June 13, 2026",
+    summary: "Choosing the wrong microcontroller for your Edge AI product can delay shipping by months or drive unit costs to unsustainable levels. Here is a technical breakdown of the top 3 silicon choices."
+  },
+  {
+    slug: "python-to-cpp-firmware-migration",
+    title: "Porting Python ML Models to C++ for Embedded Microcontrollers",
+    category: "Edge AI",
+    date: "June 13, 2026",
+    summary: "Most machine learning models are designed in Python using float32 operations. Learn the exact step-by-step pipeline to translate these prototypes into static C++ arrays."
+  },
+  {
+    slug: "edge-ai-unlocking-efficiency",
+    title: "Why Cloud-Only AI is Failing Your Hardware Products",
+    category: "Edge AI",
+    date: "June 12, 2026",
+    summary: "Discover why sending raw sensor streams to the cloud is unsustainable for modern hardware products, and how running deep learning inference locally on microcontrollers saves costs."
+  },
+  {
+    slug: "enterprise-aiot-architecture",
+    title: "Architectural Blueprints for Enterprise AIoT",
+    category: "AIoT",
+    date: "June 08, 2026",
+    summary: "Discover how to design and build scalable, secure, and resilient Artificial Intelligence of Things (AIoT) systems incorporating stream processing and real-time operations dashboards."
+  },
+  {
+    slug: "aiot-in-healthcare-continuous-monitoring",
+    title: "Scaling Patient Care Safely: AIoT in Medical Devices",
+    category: "Healthcare",
+    date: "June 05, 2026",
+    summary: "Medical device manufacturers face high hurdles: data privacy (HIPAA) and life-critical latency. Learn how embedding machine learning classifiers directly on medical wearables solves these."
+  },
+  {
+    slug: "industrial-aiot-predictive-maintenance",
+    title: "Stopping Catastrophic Downtime: The ROI of Industrial AIoT",
+    category: "Industrial",
+    date: "May 28, 2026",
+    summary: "Discover how industrial operations leads are utilizing Edge AI vibration sensors to detect mechanical bearing anomalies 48 hours before failure, boosting OEE."
+  }
 ];
 
 function HomePage() {
@@ -87,7 +137,7 @@ function HomePage() {
           const bpmFactor = sliderVal / 72;
           const cycleTicks = Math.max(5, Math.round(12 / bpmFactor));
           const pos = tick % (anomaly ? Math.round(cycleTicks * (1.2 + Math.random() * 0.4)) : cycleTicks);
-          
+
           if (pos === 0) val = 0;
           else if (pos === 1) val = 0.1;
           else if (pos === 3) val = -0.3;
@@ -214,7 +264,7 @@ function HomePage() {
       {/* INTERACTIVE PLAYGROUND */}
       <section className="border-b border-border bg-black text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30" />
-        
+
         <div className="relative mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
           <div className="text-xs font-mono uppercase tracking-widest text-brand">
             § 03 — TinyML Playground
@@ -234,33 +284,30 @@ function HomePage() {
                 <div className="mt-4 flex flex-col gap-2">
                   <button
                     onClick={() => setProfile("vibration")}
-                    className={`flex items-center justify-between border px-4 py-3 text-left transition-all ${
-                      profile === "vibration"
-                        ? "border-brand bg-brand/10 text-white animate-pulse"
-                        : "border-gray-800 text-gray-400 hover:border-gray-700 hover:text-white"
-                    }`}
+                    className={`flex items-center justify-between border px-4 py-3 text-left transition-all ${profile === "vibration"
+                      ? "border-brand bg-brand/10 text-white animate-pulse"
+                      : "border-gray-800 text-gray-400 hover:border-gray-700 hover:text-white"
+                      }`}
                   >
                     <span className="font-semibold text-sm">Industrial Vibration</span>
                     <span className="font-mono text-xs text-brand">Anomaly Detection</span>
                   </button>
                   <button
                     onClick={() => setProfile("ecg")}
-                    className={`flex items-center justify-between border px-4 py-3 text-left transition-all ${
-                      profile === "ecg"
-                        ? "border-brand bg-brand/10 text-white animate-pulse"
-                        : "border-gray-800 text-gray-400 hover:border-gray-700 hover:text-white"
-                    }`}
+                    className={`flex items-center justify-between border px-4 py-3 text-left transition-all ${profile === "ecg"
+                      ? "border-brand bg-brand/10 text-white animate-pulse"
+                      : "border-gray-800 text-gray-400 hover:border-gray-700 hover:text-white"
+                      }`}
                   >
                     <span className="font-semibold text-sm">Cardiac ECG Monitor</span>
                     <span className="font-mono text-xs text-brand">Arrhythmia Classify</span>
                   </button>
                   <button
                     onClick={() => setProfile("gas")}
-                    className={`flex items-center justify-between border px-4 py-3 text-left transition-all ${
-                      profile === "gas"
-                        ? "border-brand bg-brand/10 text-white animate-pulse"
-                        : "border-gray-800 text-gray-400 hover:border-gray-700 hover:text-white"
-                    }`}
+                    className={`flex items-center justify-between border px-4 py-3 text-left transition-all ${profile === "gas"
+                      ? "border-brand bg-brand/10 text-white animate-pulse"
+                      : "border-gray-800 text-gray-400 hover:border-gray-700 hover:text-white"
+                      }`}
                   >
                     <span className="font-semibold text-sm">Environment Monitor</span>
                     <span className="font-mono text-xs text-brand">Gas Leakage</span>
@@ -322,11 +369,10 @@ function HomePage() {
                   </div>
                   <button
                     onClick={() => setAnomaly(!anomaly)}
-                    className={`px-4 py-2 text-xs font-mono transition-colors border cursor-pointer ${
-                      anomaly 
-                        ? "bg-red-500/20 border-red-500 text-red-400 font-semibold" 
-                        : "border-gray-700 hover:border-gray-600 text-gray-300"
-                    }`}
+                    className={`px-4 py-2 text-xs font-mono transition-colors border cursor-pointer ${anomaly
+                      ? "bg-red-500/20 border-red-500 text-red-400 font-semibold"
+                      : "border-gray-700 hover:border-gray-600 text-gray-300"
+                      }`}
                   >
                     {anomaly ? "ACTIVE" : "INACTIVE"}
                   </button>
@@ -367,7 +413,7 @@ function HomePage() {
                     </LineChart>
                   </ResponsiveContainer>
                 )}
-                
+
                 {anomaly && (
                   <div className="absolute top-4 right-4 bg-red-600 text-white text-[10px] px-2 py-1 uppercase tracking-widest font-semibold border border-red-400 animate-pulse">
                     [!] ANOMALY_ALERT
@@ -379,11 +425,11 @@ function HomePage() {
                 <div>
                   <span className="text-gray-500 block uppercase text-[10px]">ML Inference</span>
                   <span className={`font-semibold text-sm ${anomaly ? "text-red-500 animate-pulse" : "text-brand"}`}>
-                    {profile === "vibration" 
+                    {profile === "vibration"
                       ? (anomaly ? "FAULT_DETECTED" : "BEARING_STABLE")
                       : profile === "ecg"
-                      ? (anomaly ? "ARRHYTHMIA" : "SINUS_RHYTHM")
-                      : (anomaly ? "GAS_LEAK_ALERT" : "AIR_QUALITY_OK")}
+                        ? (anomaly ? "ARRHYTHMIA" : "SINUS_RHYTHM")
+                        : (anomaly ? "GAS_LEAK_ALERT" : "AIR_QUALITY_OK")}
                   </span>
                 </div>
                 <div>
@@ -436,6 +482,97 @@ function HomePage() {
             ))}
           </ul>
         </div>
+      </section>
+
+      {/* FEATURED BLOG SLIDER */}
+      <section className="border-b border-border bg-background overflow-hidden">
+        <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+            <div>
+              <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                <span className="text-brand">§</span> 05 — Strategy & Insights
+              </div>
+              <h2 className="mt-4 max-w-3xl text-4xl font-semibold tracking-tight md:text-6xl">
+                Featured <span className="text-brand">Strategy</span> Articles.
+              </h2>
+            </div>
+            <div className="flex items-center gap-6">
+              <Link to="/blog" className="text-sm font-medium underline-offset-4 hover:underline">
+                All articles →
+              </Link>
+              <div className="flex items-center gap-2">
+                <button className="swiper-button-prev-custom flex size-10 items-center justify-center border border-border hover:border-brand hover:text-brand transition-colors cursor-pointer text-foreground">
+                  <ArrowLeft className="size-4" />
+                </button>
+                <button className="swiper-button-next-custom flex size-10 items-center justify-center border border-border hover:border-brand hover:text-brand transition-colors cursor-pointer text-foreground">
+                  <ArrowRight className="size-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <Swiper
+            modules={[Pagination, Autoplay, Navigation]}
+            spaceBetween={30}
+            slidesPerView={1}
+            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            pagination={{ clickable: true, el: ".swiper-custom-pagination" }}
+            navigation={{
+              nextEl: ".swiper-button-next-custom",
+              prevEl: ".swiper-button-prev-custom",
+            }}
+            breakpoints={{
+              640: { slidesPerView: 1.5 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            className="mt-12 !pb-14"
+          >
+            {homeArticles.map((article) => (
+              <SwiperSlide key={article.slug} className="h-auto">
+                <Link
+                  to={`/blog/${article.slug}` as any}
+                  className="group flex h-full flex-col justify-between border border-border bg-secondary/20 p-8 transition-all hover:border-brand hover:bg-secondary/40"
+                >
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between text-xs font-mono text-muted-foreground uppercase tracking-widest">
+                      <span>{article.category}</span>
+                      <span>{article.date}</span>
+                    </div>
+                    <h3 className="text-xl font-semibold leading-snug tracking-tight text-foreground transition-colors group-hover:text-brand">
+                      {article.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
+                      {article.summary}
+                    </p>
+                  </div>
+                  <div className="mt-8 flex items-center text-sm font-medium text-foreground group-hover:text-brand">
+                    <span>Read Article</span>
+                    <ArrowUpRight className="ml-1 size-4 transition-transform group-hover:rotate-45" />
+                  </div>
+                </Link>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
+          <div className="swiper-custom-pagination flex justify-center gap-2 mt-4" />
+        </div>
+
+        <style>{`
+          .swiper-custom-pagination .swiper-pagination-bullet {
+            width: 8px;
+            height: 8px;
+            background: var(--muted-foreground);
+            opacity: 0.3;
+            border-radius: 0;
+            transition: all 0.3s ease;
+          }
+          .swiper-custom-pagination .swiper-pagination-bullet-active {
+            width: 24px;
+            background: #000DFF !important;
+            opacity: 1;
+          }
+        `}</style>
       </section>
 
       {/* CTA */}

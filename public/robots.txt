@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://edge-intelliflow.lovable.app/sitemap.xml
+Sitemap: https://astrointelli.com/sitemap.xml

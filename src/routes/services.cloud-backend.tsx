@@ -4,12 +4,12 @@ import { services } from "@/lib/services-data";
 import { useState } from "react";
 import { ServicesSidebar } from "@/components/services-sidebar";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 const s = services.find((x) => x.slug === "cloud-backend")!;
 
 export const Route = createFileRoute("/services/cloud-backend")({
   head: () => {
-    const title = `${s.title} — AstroIntelli Technologies`;
+    const title = `${s.title} — AstroIntelli Tech`;
     const description = s.overview;
     const url = `${SITE_URL}/services/cloud-backend`;
     return {
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/services/cloud-backend")({
             "@type": "Service",
             name: s.title,
             description: s.overview,
-            provider: { "@type": "Organization", name: "AstroIntelli Technologies", url: SITE_URL },
+            provider: { "@type": "Organization", name: "AstroIntelli Tech", url: SITE_URL },
             serviceType: s.title,
             areaServed: s.industries,
             url,
@@ -85,7 +85,7 @@ function CloudBackendDetail() {
 
         {/* Main Content Column */}
         <div className="md:col-span-9 space-y-16 md:space-y-20">
-          
+
           {/* BACK TO SERVICES & HERO */}
           <div>
             <Link to="/services" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
@@ -97,7 +97,7 @@ function CloudBackendDetail() {
             </h1>
             <p className="mt-4 font-display italic text-muted-foreground md:text-lg">{s.tagline}</p>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">{s.overview}</p>
-            
+
             {/* Tech stack & Industries inline details */}
             <div className="mt-8 grid gap-6 sm:grid-cols-2 border-t border-b border-border py-6">
               <div>
@@ -109,7 +109,7 @@ function CloudBackendDetail() {
                 </ul>
               </div>
               <div>
-                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Target Sectors</div>
+                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Sectors</div>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {s.industries.map((t) => (
                     <li key={t} className="text-xs text-muted-foreground">/ {t}</li>

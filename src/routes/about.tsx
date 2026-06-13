@@ -1,18 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About — AstroIntelli Technologies" },
+      { title: "About — AstroIntelli Tech" },
       { name: "description", content: "AstroIntelli engineers embedded + AI products with a focus on industrial and healthcare innovation." },
-      { property: "og:title", content: "About — AstroIntelli Technologies" },
+      { property: "og:title", content: "About — AstroIntelli Tech" },
       { property: "og:description", content: "Embedded + AI under one roof. Intelligence at the Edge." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL + "/about" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "About — AstroIntelli Technologies" },
+      { name: "twitter:title", content: "About — AstroIntelli Tech" },
       { name: "twitter:description", content: "Embedded + AI under one roof. Intelligence at the Edge." },
     ],
     links: [{ rel: "canonical", href: SITE_URL + "/about" }],
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/about")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "AboutPage",
-          name: "About AstroIntelli Technologies",
+          name: "About AstroIntelli Tech",
           url: SITE_URL + "/about",
         }),
       },
@@ -50,7 +50,7 @@ function AboutPage() {
             We engineer the <span className="text-brand">connected</span> intelligent world.
           </h1>
           <p className="mt-8 max-w-3xl text-lg text-muted-foreground md:text-xl">
-            AstroIntelli Technologies is an embedded + AI product company. We help industrial and healthcare innovators turn sensors into systems, and systems into intelligent products that learn in the field.
+            AstroIntelli Tech is an embedded + AI product company. We help industrial and healthcare innovators turn sensors into systems, and systems into intelligent products that learn in the field.
           </p>
         </div>
       </section>

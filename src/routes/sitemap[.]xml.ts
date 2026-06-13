@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type {} from "@tanstack/react-start";
+import type { } from "@tanstack/react-start";
 import { services } from "@/lib/services-data";
 
-const BASE_URL = "https://edge-intelliflow.lovable.app";
+const BASE_URL = "https://astrointelli.com";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {

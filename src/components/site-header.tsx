@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/astrointelli-logo.asset.json";
+import { Logo } from "@/components/logo";
 
 const nav = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
   { to: "/training", label: "Training" },
+  { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
@@ -16,8 +17,8 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8">
-        <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-          <img src={logo.url} alt="AstroIntelli" className="h-7 w-auto" />
+        <Link to="/" className="flex items-center gap-2 text-foreground" onClick={() => setOpen(false)}>
+          <Logo className="h-7 w-auto" />
         </Link>
         <nav className="hidden items-center gap-8 md:flex">
           {nav.map((n) => (

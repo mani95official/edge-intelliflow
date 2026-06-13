@@ -78,9 +78,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "author", content: "AstroIntelli Technologies" },
+      { name: "author", content: "AstroIntelli Tech" },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "AstroIntelli Technologies" },
+      { property: "og:site_name", content: "AstroIntelli Tech" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@AstroIntelli" },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/b927f5e5-c3e4-43f1-afd6-265de19b4b81/id-preview-e218eeae--223d8cea-b23c-4852-8b8c-08a5fcde5fcb.lovable.app-1781079538140.png" },

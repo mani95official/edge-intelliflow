@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowUpRight, Check, ArrowLeft } from "lucide-react";
 import { services, type Service } from "@/lib/services-data";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 
 export const Route = createFileRoute("/services/$slug")({
   loader: ({ params }) => {
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/services/$slug")({
   },
   head: ({ loaderData, params }) => {
     const s = loaderData?.service;
-    const title = s ? `${s.title} — AstroIntelli Technologies` : "Service — AstroIntelli";
+    const title = s ? `${s.title} — AstroIntelli Tech` : "Service — AstroIntelli";
     const description = s ? s.overview : "Service detail.";
     const url = `${SITE_URL}/services/${params.slug}`;
     return {
@@ -30,20 +30,20 @@ export const Route = createFileRoute("/services/$slug")({
       links: [{ rel: "canonical", href: url }],
       scripts: s
         ? [
-            {
-              type: "application/ld+json",
-              children: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Service",
-                name: s.title,
-                description: s.overview,
-                provider: { "@type": "Organization", name: "AstroIntelli Technologies", url: SITE_URL },
-                serviceType: s.title,
-                areaServed: s.industries,
-                url,
-              }),
-            },
-          ]
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Service",
+              name: s.title,
+              description: s.overview,
+              provider: { "@type": "Organization", name: "AstroIntelli Tech", url: SITE_URL },
+              serviceType: s.title,
+              areaServed: s.industries,
+              url,
+            }),
+          },
+        ]
         : [],
     };
   },

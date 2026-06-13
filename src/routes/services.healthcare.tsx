@@ -5,12 +5,12 @@ import { useState, useEffect } from "react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis } from "recharts";
 import { ServicesSidebar } from "@/components/services-sidebar";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 const s = services.find((x) => x.slug === "healthcare")!;
 
 export const Route = createFileRoute("/services/healthcare")({
   head: () => {
-    const title = `${s.title} — AstroIntelli Technologies`;
+    const title = `${s.title} — AstroIntelli Tech`;
     const description = s.overview;
     const url = `${SITE_URL}/services/healthcare`;
     return {
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/services/healthcare")({
             "@type": "Service",
             name: s.title,
             description: s.overview,
-            provider: { "@type": "Organization", name: "AstroIntelli Technologies", url: SITE_URL },
+            provider: { "@type": "Organization", name: "AstroIntelli Tech", url: SITE_URL },
             serviceType: s.title,
             areaServed: s.industries,
             url,
@@ -58,12 +58,12 @@ function HealthcareDetail() {
       setEkgHistory((prev) => {
         const next = [...prev];
         if (next.length > 25) next.shift();
-        
+
         const bpmFactor = bpm / 72;
         const cycleTicks = Math.max(5, Math.round(12 / bpmFactor));
         const targetCycle = condition === "anomaly" ? Math.round(cycleTicks * (1.2 + Math.random() * 0.3)) : cycleTicks;
         const pos = tick % targetCycle;
-        
+
         let val = 0;
         if (pos === 0) val = 0;
         else if (pos === 1) val = 0.15;
@@ -72,9 +72,9 @@ function HealthcareDetail() {
         else if (pos === 5) val = -0.9;
         else if (pos === 7) val = 0.45;
         else val = 0;
-        
+
         val += (Math.random() - 0.5) * 0.08;
-        
+
         next.push({ tick, val: parseFloat(val.toFixed(2)) });
         return next;
       });
@@ -95,7 +95,7 @@ function HealthcareDetail() {
 
         {/* Main Content Column */}
         <div className="md:col-span-9 space-y-16 md:space-y-20">
-          
+
           {/* BACK TO SERVICES & HERO */}
           <div>
             <Link to="/services" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
@@ -107,7 +107,7 @@ function HealthcareDetail() {
             </h1>
             <p className="mt-4 font-display italic text-muted-foreground md:text-lg">{s.tagline}</p>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">{s.overview}</p>
-            
+
             {/* Tech stack & Industries inline details */}
             <div className="mt-8 grid gap-6 sm:grid-cols-2 border-t border-b border-border py-6">
               <div>
@@ -119,7 +119,7 @@ function HealthcareDetail() {
                 </ul>
               </div>
               <div>
-                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Target Sectors</div>
+                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Sectors</div>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {s.industries.map((t) => (
                     <li key={t} className="text-xs text-muted-foreground">/ {t}</li>
@@ -144,7 +144,7 @@ function HealthcareDetail() {
                 <div className="lg:col-span-5 flex flex-col justify-between border border-gray-800 bg-gray-950/60 p-5 rounded">
                   <div>
                     <div className="text-[10px] text-gray-400 uppercase tracking-widest border-b border-gray-900 pb-2">Vitals Configuration</div>
-                    
+
                     {/* BPM Slider */}
                     <div className="mt-4 space-y-1">
                       <div className="flex justify-between text-[10px]">
@@ -167,17 +167,15 @@ function HealthcareDetail() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => setCondition("normal")}
-                          className={`flex-1 text-center py-2 text-[10px] border cursor-pointer transition-colors ${
-                            condition === "normal" ? "border-teal-500 bg-teal-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
-                          }`}
+                          className={`flex-1 text-center py-2 text-[10px] border cursor-pointer transition-colors ${condition === "normal" ? "border-teal-500 bg-teal-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
+                            }`}
                         >
                           Normal
                         </button>
                         <button
                           onClick={() => setCondition("anomaly")}
-                          className={`flex-1 text-center py-2 text-[10px] border cursor-pointer transition-colors ${
-                            condition === "anomaly" ? "border-red-500 bg-red-500/10 text-red-400 animate-pulse" : "border-gray-800 text-gray-500 hover:text-white"
-                          }`}
+                          className={`flex-1 text-center py-2 text-[10px] border cursor-pointer transition-colors ${condition === "anomaly" ? "border-red-500 bg-red-500/10 text-red-400 animate-pulse" : "border-gray-800 text-gray-500 hover:text-white"
+                            }`}
                         >
                           Arrhythmia
                         </button>
@@ -216,7 +214,7 @@ function HealthcareDetail() {
                         </LineChart>
                       </ResponsiveContainer>
                     )}
-                    
+
                     {condition === "anomaly" && (
                       <div className="absolute top-3 right-3 bg-red-600 text-white text-[9px] px-1.5 py-0.5 uppercase tracking-widest font-semibold border border-red-500 animate-pulse">
                         ARRHYTHMIA_DETECTED

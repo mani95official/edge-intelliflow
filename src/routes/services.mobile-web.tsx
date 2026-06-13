@@ -4,12 +4,12 @@ import { services } from "@/lib/services-data";
 import { useState } from "react";
 import { ServicesSidebar } from "@/components/services-sidebar";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 const s = services.find((x) => x.slug === "mobile-web")!;
 
 export const Route = createFileRoute("/services/mobile-web")({
   head: () => {
-    const title = `${s.title} — AstroIntelli Technologies`;
+    const title = `${s.title} — AstroIntelli Tech`;
     const description = s.overview;
     const url = `${SITE_URL}/services/mobile-web`;
     return {
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/services/mobile-web")({
             "@type": "Service",
             name: s.title,
             description: s.overview,
-            provider: { "@type": "Organization", name: "AstroIntelli Technologies", url: SITE_URL },
+            provider: { "@type": "Organization", name: "AstroIntelli Tech", url: SITE_URL },
             serviceType: s.title,
             areaServed: s.industries,
             url,
@@ -59,7 +59,7 @@ function MobileWebDetail() {
 
         {/* Main Content Column */}
         <div className="md:col-span-9 space-y-16 md:space-y-20">
-          
+
           {/* BACK TO SERVICES & HERO */}
           <div>
             <Link to="/services" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
@@ -71,7 +71,7 @@ function MobileWebDetail() {
             </h1>
             <p className="mt-4 font-display italic text-muted-foreground md:text-lg">{s.tagline}</p>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">{s.overview}</p>
-            
+
             {/* Tech stack & Industries inline details */}
             <div className="mt-8 grid gap-6 sm:grid-cols-2 border-t border-b border-border py-6">
               <div>
@@ -83,7 +83,7 @@ function MobileWebDetail() {
                 </ul>
               </div>
               <div>
-                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Target Sectors</div>
+                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Sectors</div>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {s.industries.map((t) => (
                     <li key={t} className="text-xs text-muted-foreground">/ {t}</li>
@@ -126,7 +126,7 @@ function MobileWebDetail() {
                     <div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-3 bg-gray-800 rounded-full z-20 flex justify-center items-center">
                       <span className="w-5 h-0.5 bg-gray-950 rounded-full" />
                     </div>
-                    
+
                     <div className="pt-6 pb-3 px-3 bg-gray-950 min-h-[350px] flex flex-col justify-between font-sans">
                       <div className="flex justify-between items-center text-[9px] text-gray-500 font-mono">
                         <span>9:41</span>
@@ -138,8 +138,8 @@ function MobileWebDetail() {
 
                         {/* Lamp controller widget */}
                         <div className="border border-white/10 bg-white/5 backdrop-blur-md p-3 rounded-lg relative overflow-hidden">
-                          <div 
-                            className="absolute inset-0 bg-yellow-400 transition-opacity duration-150 pointer-events-none" 
+                          <div
+                            className="absolute inset-0 bg-yellow-400 transition-opacity duration-150 pointer-events-none"
                             style={{ opacity: brightness * 0.0018 }}
                           />
                           <div className="relative flex items-center justify-between z-10">
@@ -175,9 +175,8 @@ function MobileWebDetail() {
                               <button
                                 key={spd}
                                 onClick={() => setFanSpeed(spd)}
-                                className={`text-[8px] px-1.5 py-0.5 rounded font-mono font-semibold cursor-pointer transition-colors ${
-                                  fanSpeed === spd ? "bg-indigo-650 text-white" : "bg-white/10 text-gray-400 hover:text-white"
-                                }`}
+                                className={`text-[8px] px-1.5 py-0.5 rounded font-mono font-semibold cursor-pointer transition-colors ${fanSpeed === spd ? "bg-indigo-650 text-white" : "bg-white/10 text-gray-400 hover:text-white"
+                                  }`}
                               >
                                 {spd}
                               </button>

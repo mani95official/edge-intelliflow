@@ -5,12 +5,12 @@ import { useState, useEffect } from "react";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis } from "recharts";
 import { ServicesSidebar } from "@/components/services-sidebar";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 const s = services.find((x) => x.slug === "aiot")!;
 
 export const Route = createFileRoute("/services/aiot")({
   head: () => {
-    const title = `${s.title} — AstroIntelli Technologies`;
+    const title = `${s.title} — AstroIntelli Tech`;
     const description = s.overview;
     const url = `${SITE_URL}/services/aiot`;
     return {
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/services/aiot")({
             "@type": "Service",
             name: s.title,
             description: s.overview,
-            provider: { "@type": "Organization", name: "AstroIntelli Technologies", url: SITE_URL },
+            provider: { "@type": "Organization", name: "AstroIntelli Tech", url: SITE_URL },
             serviceType: s.title,
             areaServed: s.industries,
             url,
@@ -128,7 +128,7 @@ function AiotDetail() {
 
         {/* Main Content Column */}
         <div className="md:col-span-9 space-y-16 md:space-y-20">
-          
+
           {/* BACK TO SERVICES & HERO */}
           <div>
             <Link to="/services" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
@@ -140,7 +140,7 @@ function AiotDetail() {
             </h1>
             <p className="mt-4 font-display italic text-muted-foreground md:text-lg">{s.tagline}</p>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">{s.overview}</p>
-            
+
             {/* Tech stack & Industries inline details */}
             <div className="mt-8 grid gap-6 sm:grid-cols-2 border-t border-b border-border py-6">
               <div>
@@ -152,7 +152,7 @@ function AiotDetail() {
                 </ul>
               </div>
               <div>
-                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Target Sectors</div>
+                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Sectors</div>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {s.industries.map((t) => (
                     <li key={t} className="text-xs text-muted-foreground">/ {t}</li>
@@ -179,20 +179,18 @@ function AiotDetail() {
                     <div key={d.id} className="border border-gray-800 bg-gray-950 p-4 font-mono flex flex-col justify-between rounded">
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] text-gray-400 font-semibold">{d.name}</span>
-                        <span className={`flex items-center gap-1 text-[9px] px-1.5 py-0.5 rounded border ${
-                          d.status === "ONLINE" 
-                            ? "border-emerald-500/20 bg-emerald-500/5 text-emerald-400"
-                            : d.status === "ERROR"
+                        <span className={`flex items-center gap-1 text-[9px] px-1.5 py-0.5 rounded border ${d.status === "ONLINE"
+                          ? "border-emerald-500/20 bg-emerald-500/5 text-emerald-400"
+                          : d.status === "ERROR"
                             ? "border-red-500/20 bg-red-500/5 text-red-400 animate-pulse"
                             : "border-gray-800 bg-gray-900/50 text-gray-500"
-                        }`}>
-                          <span className={`size-1 rounded-full ${
-                            d.status === "ONLINE" 
-                              ? "bg-emerald-500"
-                              : d.status === "ERROR"
+                          }`}>
+                          <span className={`size-1 rounded-full ${d.status === "ONLINE"
+                            ? "bg-emerald-500"
+                            : d.status === "ERROR"
                               ? "bg-red-500 animate-ping"
                               : "bg-gray-600"
-                          }`} />
+                            }`} />
                           {d.status}
                         </span>
                       </div>
@@ -226,8 +224,8 @@ function AiotDetail() {
                           <AreaChart data={telemetryHistory}>
                             <defs>
                               <linearGradient id="colorRate" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#10b981" stopOpacity={0.2}/>
-                                <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                                <stop offset="5%" stopColor="#10b981" stopOpacity={0.2} />
+                                <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
                               </linearGradient>
                             </defs>
                             <Area type="monotone" dataKey="rate" stroke="#10b981" fillOpacity={1} fill="url(#colorRate)" strokeWidth={1} isAnimationActive={false} />
@@ -235,7 +233,7 @@ function AiotDetail() {
                         </ResponsiveContainer>
                       )}
                     </div>
-                    
+
                     {isAlertActive && (
                       <div className="mt-3 border border-red-500/30 bg-red-500/5 p-2 flex gap-2 items-start text-[10px] text-red-400 rounded">
                         <AlertTriangle className="size-3.5 shrink-0 mt-0.5" />
@@ -248,21 +246,20 @@ function AiotDetail() {
                   </div>
 
                   <div className="mt-4 pt-3 border-t border-gray-900 grid grid-cols-3 gap-1.5">
-                    <button 
+                    <button
                       onClick={toggleAlert}
-                      className={`text-center py-1.5 text-[10px] border cursor-pointer font-mono ${
-                        isAlertActive ? "border-red-500 bg-red-500/10 text-red-400" : "border-gray-800 text-gray-500 hover:text-white"
-                      }`}
+                      className={`text-center py-1.5 text-[10px] border cursor-pointer font-mono ${isAlertActive ? "border-red-500 bg-red-500/10 text-red-400" : "border-gray-800 text-gray-500 hover:text-white"
+                        }`}
                     >
                       {isAlertActive ? "MUTE" : "FAULT"}
                     </button>
-                    <button 
+                    <button
                       onClick={simulatePowerOutage}
                       className="text-center py-1.5 text-[10px] border border-gray-800 text-gray-500 hover:text-white font-mono cursor-pointer"
                     >
                       CUT
                     </button>
-                    <button 
+                    <button
                       onClick={restoreAll}
                       className="text-center py-1.5 text-[10px] border border-gray-800 bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 font-mono cursor-pointer"
                     >

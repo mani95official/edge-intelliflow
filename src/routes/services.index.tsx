@@ -2,19 +2,19 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Check } from "lucide-react";
 import { services } from "@/lib/services-data";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 
 export const Route = createFileRoute("/services/")({
   head: () => ({
     meta: [
-      { title: "Services — AstroIntelli Technologies" },
+      { title: "Services — AstroIntelli Tech" },
       { name: "description", content: "Embedded systems, Edge AI, AIoT, cloud, mobile, industrial automation, and healthcare technology services." },
-      { property: "og:title", content: "Services — AstroIntelli Technologies" },
+      { property: "og:title", content: "Services — AstroIntelli Tech" },
       { property: "og:description", content: "Eight capability areas across embedded, AI, IoT and cloud." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL + "/services" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Services — AstroIntelli Technologies" },
+      { name: "twitter:title", content: "Services — AstroIntelli Tech" },
       { name: "twitter:description", content: "Eight capability areas across embedded, AI, IoT and cloud." },
     ],
     links: [{ rel: "canonical", href: SITE_URL + "/services" }],

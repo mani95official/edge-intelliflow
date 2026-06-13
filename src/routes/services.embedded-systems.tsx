@@ -4,12 +4,12 @@ import { services } from "@/lib/services-data";
 import { useState } from "react";
 import { ServicesSidebar } from "@/components/services-sidebar";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 const s = services.find((x) => x.slug === "embedded-systems")!;
 
 export const Route = createFileRoute("/services/embedded-systems")({
   head: () => {
-    const title = `${s.title} — AstroIntelli Technologies`;
+    const title = `${s.title} — AstroIntelli Tech`;
     const description = s.overview;
     const url = `${SITE_URL}/services/embedded-systems`;
     return {
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/services/embedded-systems")({
             "@type": "Service",
             name: s.title,
             description: s.overview,
-            provider: { "@type": "Organization", name: "AstroIntelli Technologies", url: SITE_URL },
+            provider: { "@type": "Organization", name: "AstroIntelli Tech", url: SITE_URL },
             serviceType: s.title,
             areaServed: s.industries,
             url,
@@ -81,7 +81,7 @@ function EmbeddedSystemsDetail() {
 
         {/* Main Content Column */}
         <div className="md:col-span-9 space-y-16 md:space-y-20">
-          
+
           {/* BACK TO SERVICES & HERO */}
           <div>
             <Link to="/services" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
@@ -93,7 +93,7 @@ function EmbeddedSystemsDetail() {
             </h1>
             <p className="mt-4 font-display italic text-muted-foreground md:text-lg">{s.tagline}</p>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">{s.overview}</p>
-            
+
             {/* Tech stack & Industries inline details */}
             <div className="mt-8 grid gap-6 sm:grid-cols-2 border-t border-b border-border py-6">
               <div>
@@ -105,7 +105,7 @@ function EmbeddedSystemsDetail() {
                 </ul>
               </div>
               <div>
-                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Target Sectors</div>
+                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Sectors</div>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {s.industries.map((t) => (
                     <li key={t} className="text-xs text-muted-foreground">/ {t}</li>
@@ -121,7 +121,7 @@ function EmbeddedSystemsDetail() {
             <div className="relative">
               <div className="text-xs font-mono uppercase tracking-widest text-brand">§ Interactive PCB schematic</div>
               <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">Explore the silicon architecture</h2>
-              
+
               <div className="mt-8 grid gap-8 lg:grid-cols-12">
                 {/* PCB representation */}
                 <div className="lg:col-span-7 flex items-center justify-center p-6 bg-gray-950 border border-gray-900 rounded-md relative min-h-[300px]">
@@ -129,27 +129,25 @@ function EmbeddedSystemsDetail() {
                     <div className="absolute top-1/2 left-0 right-0 h-px bg-emerald-500/20" />
                     <div className="absolute top-0 bottom-0 left-1/3 w-px bg-emerald-500/20" />
                     <div className="absolute top-0 bottom-0 left-2/3 w-px bg-emerald-500/20" />
-                    
+
                     <div className="flex justify-between items-start z-10">
-                      <button 
+                      <button
                         onClick={() => setActiveComponent("mcu")}
-                        className={`size-16 border rounded flex flex-col items-center justify-center cursor-pointer transition-all ${
-                          activeComponent === "mcu" 
-                            ? "bg-brand/20 border-brand shadow-[0_0_15px_rgba(239,68,68,0.4)] text-white" 
-                            : "bg-gray-900 border-gray-800 text-gray-500 hover:border-gray-700"
-                        }`}
+                        className={`size-16 border rounded flex flex-col items-center justify-center cursor-pointer transition-all ${activeComponent === "mcu"
+                          ? "bg-brand/20 border-brand shadow-[0_0_15px_rgba(239,68,68,0.4)] text-white"
+                          : "bg-gray-900 border-gray-800 text-gray-500 hover:border-gray-700"
+                          }`}
                       >
                         <Cpu className="size-5 mb-0.5" />
                         <span className="text-[8px] font-mono">MCU</span>
                       </button>
 
-                      <button 
+                      <button
                         onClick={() => setActiveComponent("ota")}
-                        className={`size-14 border rounded flex flex-col items-center justify-center cursor-pointer transition-all ${
-                          activeComponent === "ota" 
-                            ? "bg-brand/20 border-brand shadow-[0_0_15px_rgba(239,68,68,0.4)] text-white" 
-                            : "bg-gray-900 border-gray-800 text-gray-500 hover:border-gray-700"
-                        }`}
+                        className={`size-14 border rounded flex flex-col items-center justify-center cursor-pointer transition-all ${activeComponent === "ota"
+                          ? "bg-brand/20 border-brand shadow-[0_0_15px_rgba(239,68,68,0.4)] text-white"
+                          : "bg-gray-900 border-gray-800 text-gray-500 hover:border-gray-700"
+                          }`}
                       >
                         <Radio className="size-4 mb-0.5" />
                         <span className="text-[8px] font-mono">RF / BLE</span>
@@ -157,25 +155,23 @@ function EmbeddedSystemsDetail() {
                     </div>
 
                     <div className="flex justify-between items-end z-10">
-                      <button 
+                      <button
                         onClick={() => setActiveComponent("power")}
-                        className={`size-14 border rounded flex flex-col items-center justify-center cursor-pointer transition-all ${
-                          activeComponent === "power" 
-                            ? "bg-brand/20 border-brand shadow-[0_0_15px_rgba(239,68,68,0.4)] text-white" 
-                            : "bg-gray-900 border-gray-800 text-gray-500 hover:border-gray-700"
-                        }`}
+                        className={`size-14 border rounded flex flex-col items-center justify-center cursor-pointer transition-all ${activeComponent === "power"
+                          ? "bg-brand/20 border-brand shadow-[0_0_15px_rgba(239,68,68,0.4)] text-white"
+                          : "bg-gray-900 border-gray-800 text-gray-500 hover:border-gray-700"
+                          }`}
                       >
                         <Zap className="size-4 mb-0.5" />
                         <span className="text-[8px] font-mono">PMIC</span>
                       </button>
 
-                      <button 
+                      <button
                         onClick={() => setActiveComponent("sensor")}
-                        className={`size-14 border rounded flex flex-col items-center justify-center cursor-pointer transition-all ${
-                          activeComponent === "sensor" 
-                            ? "bg-brand/20 border-brand shadow-[0_0_15px_rgba(239,68,68,0.4)] text-white" 
-                            : "bg-gray-900 border-gray-800 text-gray-500 hover:border-gray-700"
-                        }`}
+                        className={`size-14 border rounded flex flex-col items-center justify-center cursor-pointer transition-all ${activeComponent === "sensor"
+                          ? "bg-brand/20 border-brand shadow-[0_0_15px_rgba(239,68,68,0.4)] text-white"
+                          : "bg-gray-900 border-gray-800 text-gray-500 hover:border-gray-700"
+                          }`}
                       >
                         <Activity className="size-4 mb-0.5" />
                         <span className="text-[8px] font-mono">SENSORS</span>

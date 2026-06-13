@@ -1,4 +1,4 @@
-# AstroIntelli Technologies
+# AstroIntelli Tech
 
 > Embedded systems, Edge AI, and AIoT product development for industrial and healthcare innovators — from concept to scaled deployment.
 

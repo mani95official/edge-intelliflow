@@ -5,12 +5,12 @@ import { useState } from "react";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import { ServicesSidebar } from "@/components/services-sidebar";
 
-const SITE_URL = "https://edge-intelliflow.lovable.app";
+const SITE_URL = "https://astrointelli.com";
 const s = services.find((x) => x.slug === "edge-ai-tinyml")!;
 
 export const Route = createFileRoute("/services/edge-ai-tinyml")({
   head: () => {
-    const title = `${s.title} — AstroIntelli Technologies`;
+    const title = `${s.title} — AstroIntelli Tech`;
     const description = s.overview;
     const url = `${SITE_URL}/services/edge-ai-tinyml`;
     return {
@@ -34,7 +34,7 @@ export const Route = createFileRoute("/services/edge-ai-tinyml")({
             "@type": "Service",
             name: s.title,
             description: s.overview,
-            provider: { "@type": "Organization", name: "AstroIntelli Technologies", url: SITE_URL },
+            provider: { "@type": "Organization", name: "AstroIntelli Tech", url: SITE_URL },
             serviceType: s.title,
             areaServed: s.industries,
             url,
@@ -81,7 +81,7 @@ function EdgeAiDetail() {
 
         {/* Main Content Column */}
         <div className="md:col-span-9 space-y-16 md:space-y-20">
-          
+
           {/* BACK TO SERVICES & HERO */}
           <div>
             <Link to="/services" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6">
@@ -93,7 +93,7 @@ function EdgeAiDetail() {
             </h1>
             <p className="mt-4 font-display italic text-muted-foreground md:text-lg">{s.tagline}</p>
             <p className="mt-6 text-base leading-relaxed text-muted-foreground">{s.overview}</p>
-            
+
             {/* Tech stack & Industries inline details */}
             <div className="mt-8 grid gap-6 sm:grid-cols-2 border-t border-b border-border py-6">
               <div>
@@ -105,7 +105,7 @@ function EdgeAiDetail() {
                 </ul>
               </div>
               <div>
-                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Target Sectors</div>
+                <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Sectors</div>
                 <ul className="mt-3 flex flex-wrap gap-2">
                   {s.industries.map((t) => (
                     <li key={t} className="text-xs text-muted-foreground">/ {t}</li>
@@ -133,25 +133,22 @@ function EdgeAiDetail() {
                     <div className="mt-3 flex flex-col gap-1.5">
                       <button
                         onClick={() => setModelType("vision")}
-                        className={`text-left px-3 py-2 text-xs border cursor-pointer transition-colors ${
-                          modelType === "vision" ? "border-purple-500 bg-purple-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
-                        }`}
+                        className={`text-left px-3 py-2 text-xs border cursor-pointer transition-colors ${modelType === "vision" ? "border-purple-500 bg-purple-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
+                          }`}
                       >
                         Image Classification
                       </button>
                       <button
                         onClick={() => setModelType("audio")}
-                        className={`text-left px-3 py-2 text-xs border cursor-pointer transition-colors ${
-                          modelType === "audio" ? "border-purple-500 bg-purple-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
-                        }`}
+                        className={`text-left px-3 py-2 text-xs border cursor-pointer transition-colors ${modelType === "audio" ? "border-purple-500 bg-purple-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
+                          }`}
                       >
                         Keyword Spotting
                       </button>
                       <button
                         onClick={() => setModelType("sensor")}
-                        className={`text-left px-3 py-2 text-xs border cursor-pointer transition-colors ${
-                          modelType === "sensor" ? "border-purple-500 bg-purple-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
-                        }`}
+                        className={`text-left px-3 py-2 text-xs border cursor-pointer transition-colors ${modelType === "sensor" ? "border-purple-500 bg-purple-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
+                          }`}
                       >
                         Anomaly Detection
                       </button>
@@ -162,17 +159,15 @@ function EdgeAiDetail() {
                       <div className="mt-3 flex gap-2">
                         <button
                           onClick={() => setQuantLevel("fp32")}
-                          className={`flex-1 text-center py-2 text-xs border cursor-pointer transition-colors ${
-                            quantLevel === "fp32" ? "border-purple-500 bg-purple-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
-                          }`}
+                          className={`flex-1 text-center py-2 text-xs border cursor-pointer transition-colors ${quantLevel === "fp32" ? "border-purple-500 bg-purple-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
+                            }`}
                         >
                           Float32
                         </button>
                         <button
                           onClick={() => setQuantLevel("int8")}
-                          className={`flex-1 text-center py-2 text-xs border cursor-pointer transition-colors ${
-                            quantLevel === "int8" ? "border-purple-500 bg-purple-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
-                          }`}
+                          className={`flex-1 text-center py-2 text-xs border cursor-pointer transition-colors ${quantLevel === "int8" ? "border-purple-500 bg-purple-500/10 text-white" : "border-gray-800 text-gray-500 hover:text-white"
+                            }`}
                         >
                           Int8
                         </button>
