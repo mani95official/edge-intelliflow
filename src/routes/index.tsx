@@ -166,13 +166,9 @@ function HomePage() {
       <section className="relative overflow-hidden border-b border-border bg-background">
         <div className="absolute -right-32 top-1/2 hidden h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-brand/30 blur-3xl md:block" aria-hidden />
         <div className="absolute -left-40 -top-40 hidden h-[420px] w-[420px] rounded-full bg-brand/20 blur-3xl md:block" aria-hidden />
-        <div className="relative mx-auto max-w-7xl px-5 pt-20 pb-24 md:px-8 md:pt-32 md:pb-36">
-          <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-muted-foreground animate-rise">
-            <span className="inline-block size-1.5 rounded-full bg-brand animate-blink" />
-            Intelligence at the Edge · Est. 2026
-          </div>
-          <div className="mt-8 mb-4 animate-rise">
-            <Logo className="h-8 md:h-8 w-auto text-foreground" repeat={true} />
+        <div className="relative mx-auto max-w-7xl px-5 pt-20 pb-24 md:px-8 md:pt-25 md:pb-28">
+          <div className="mt-4 mb-4 animate-rise">
+            <Logo className="h-10 md:h-10 w-auto text-foreground" repeat={true} />
           </div>
           <h1 className="mt-4 max-w-5xl text-5xl font-semibold leading-[0.95] tracking-tight md:text-7xl lg:text-8xl animate-rise">
             Engineering
@@ -245,7 +241,7 @@ function HomePage() {
                 <Link
                   key={s.slug}
                   to={`/services/${s.slug}` as any}
-                  className="group relative flex flex-col gap-6 bg-background p-8 transition-colors hover:bg-brand hover:text-background"
+                  className="group relative flex flex-col gap-6 bg-background p-8 border border-brand-tint last:border-r-0 hover:border-brand hover:bg-brand hover:text-background"
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-xs uppercase tracking-widest text-brand group-hover:text-background/80">
