@@ -125,7 +125,7 @@ function HomePage() {
               All services →
             </Link>
           </div>
-          <div className="mt-16 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-16 grid gap-px overflow-hidden border border-brand-tint bg-brand-tint/60 md:grid-cols-2 lg:grid-cols-4">
             {services.map((s, i) => {
               const Icon = icons[i] ?? Cpu;
               return (
@@ -133,13 +133,13 @@ function HomePage() {
                   key={s.slug}
                   to="/services/$slug"
                   params={{ slug: s.slug }}
-                  className="group relative flex flex-col gap-6 bg-background p-8 transition-colors hover:bg-foreground hover:text-background"
+                  className="group relative flex flex-col gap-6 bg-background p-8 transition-colors hover:bg-brand hover:text-background"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground group-hover:text-background/60">
+                    <span className="font-mono text-xs uppercase tracking-widest text-brand group-hover:text-background/80">
                       {s.number}
                     </span>
-                    <Icon className="size-5 text-brand" />
+                    <Icon className="size-5 text-brand group-hover:text-background" />
                   </div>
                   <h3 className="text-xl font-semibold leading-tight">{s.title}</h3>
                   <p className="text-sm text-muted-foreground group-hover:text-background/70">{s.tagline}</p>
