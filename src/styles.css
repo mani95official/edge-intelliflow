@@ -57,6 +57,8 @@
   --ring: oklch(0.42 0.31 265);
   --brand: #000DFF;
   --grid-line: oklch(0.93 0 0);
+  --brand-soft: color-mix(in oklab, #000DFF 8%, white);
+  --brand-tint: color-mix(in oklab, #000DFF 14%, white);
 }
 
 @layer base {
@@ -86,6 +88,19 @@
 }
 @utility ring-brand {
   --tw-ring-color: #000DFF;
+}
+@utility bg-brand-soft {
+  background-color: var(--brand-soft);
+}
+@utility bg-brand-tint {
+  background-color: var(--brand-tint);
+}
+@utility border-brand-tint {
+  border-color: color-mix(in oklab, #000DFF 30%, transparent);
+}
+@utility text-brand-strong {
+  color: #000DFF;
+  text-shadow: 0 0 1px color-mix(in oklab, #000DFF 30%, transparent);
 }
 
 @utility grid-bg {

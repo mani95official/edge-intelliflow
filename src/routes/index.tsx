@@ -55,7 +55,8 @@ function HomePage() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-border bg-background">
-        <div className="absolute -right-32 top-1/2 hidden h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-brand/10 blur-3xl md:block" aria-hidden />
+        <div className="absolute -right-32 top-1/2 hidden h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-brand/30 blur-3xl md:block" aria-hidden />
+        <div className="absolute -left-40 -top-40 hidden h-[420px] w-[420px] rounded-full bg-brand/20 blur-3xl md:block" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-5 pt-20 pb-24 md:px-8 md:pt-32 md:pb-36">
           <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-muted-foreground animate-rise">
             <span className="inline-block size-1.5 rounded-full bg-brand animate-blink" />
@@ -86,10 +87,10 @@ function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-20 grid grid-cols-2 gap-px overflow-hidden border border-border bg-border md:grid-cols-4">
+          <div className="mt-20 grid grid-cols-2 gap-px overflow-hidden border border-brand-tint bg-brand-tint/60 md:grid-cols-4">
             {stats.map((s) => (
               <div key={s.label} className="bg-background p-6">
-                <div className="font-display text-2xl font-semibold md:text-3xl">{s.value}</div>
+                <div className="font-display text-2xl font-semibold md:text-3xl text-brand">{s.value}</div>
                 <div className="mt-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">{s.label}</div>
               </div>
             ))}
@@ -125,7 +126,7 @@ function HomePage() {
               All services →
             </Link>
           </div>
-          <div className="mt-16 grid gap-px overflow-hidden border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-16 grid gap-px overflow-hidden border border-brand-tint bg-brand-tint/60 md:grid-cols-2 lg:grid-cols-4">
             {services.map((s, i) => {
               const Icon = icons[i] ?? Cpu;
               return (
@@ -133,13 +134,13 @@ function HomePage() {
                   key={s.slug}
                   to="/services/$slug"
                   params={{ slug: s.slug }}
-                  className="group relative flex flex-col gap-6 bg-background p-8 transition-colors hover:bg-foreground hover:text-background"
+                  className="group relative flex flex-col gap-6 bg-background p-8 transition-colors hover:bg-brand hover:text-background"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground group-hover:text-background/60">
+                    <span className="font-mono text-xs uppercase tracking-widest text-brand group-hover:text-background/80">
                       {s.number}
                     </span>
-                    <Icon className="size-5 text-brand" />
+                    <Icon className="size-5 text-brand group-hover:text-background" />
                   </div>
                   <h3 className="text-xl font-semibold leading-tight">{s.title}</h3>
                   <p className="text-sm text-muted-foreground group-hover:text-background/70">{s.tagline}</p>

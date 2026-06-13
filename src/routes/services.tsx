@@ -60,8 +60,22 @@ function ServicesPage() {
             <li key={s.slug} id={s.slug} className="scroll-mt-24 py-16 md:py-24">
               <div className="grid gap-10 md:grid-cols-12">
                 <div className="md:col-span-5">
-                  <div className="font-mono text-sm text-brand">{s.number}</div>
-                  <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">{s.title}</h2>
+                  <Link
+                    to="/services/$slug"
+                    params={{ slug: s.slug }}
+                    className="inline-flex items-center gap-2 border border-brand-tint bg-brand-soft px-2 py-1 font-mono text-sm text-brand"
+                  >
+                    {s.number} →
+                  </Link>
+                  <h2 className="mt-4 text-3xl font-semibold tracking-tight md:text-5xl">
+                    <Link
+                      to="/services/$slug"
+                      params={{ slug: s.slug }}
+                      className="bg-gradient-to-r from-foreground to-foreground bg-[length:0_2px] bg-left-bottom bg-no-repeat transition-[background-size] hover:bg-[length:100%_2px]"
+                    >
+                      {s.title}
+                    </Link>
+                  </h2>
                   <p className="mt-3 font-display italic text-muted-foreground md:text-lg">{s.tagline}</p>
                   <p className="mt-6 text-muted-foreground">{s.description}</p>
                   <div className="mt-8 flex flex-wrap gap-4">
@@ -74,20 +88,26 @@ function ServicesPage() {
                     </Link>
                     <Link
                       to="/contact"
-                      className="inline-flex items-center gap-2 border border-border px-5 py-3 text-sm font-medium hover:border-foreground"
+                      className="inline-flex items-center gap-2 border border-brand-tint bg-brand-soft px-5 py-3 text-sm font-medium text-brand hover:border-brand"
                     >
                       Discuss this service
                     </Link>
                   </div>
                 </div>
-                <ul className="md:col-span-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2">
-                  {s.items.map((item) => (
-                    <li key={item} className="flex items-start gap-3 bg-background p-5">
-                      <Check className="mt-0.5 size-4 shrink-0 text-brand" />
-                      <span className="text-sm">{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                <Link
+                  to="/services/$slug"
+                  params={{ slug: s.slug }}
+                  className="md:col-span-7 group block"
+                >
+                  <ul className="grid gap-px overflow-hidden border border-brand-tint bg-brand-tint/40 sm:grid-cols-2 transition-colors group-hover:bg-brand/10">
+                    {s.items.map((item) => (
+                      <li key={item} className="flex items-start gap-3 bg-background p-5">
+                        <Check className="mt-0.5 size-4 shrink-0 text-brand" />
+                        <span className="text-sm">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </Link>
               </div>
             </li>
           ))}
