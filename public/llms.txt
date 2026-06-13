@@ -1,0 +1,24 @@
+# AstroIntelli Technologies
+
+> Embedded systems, Edge AI, and AIoT product development for industrial and healthcare innovators — from concept to scaled deployment.
+
+AstroIntelli engineers the full stack of connected intelligent products: firmware on ESP32/STM32, on-device ML with TinyML, cloud backends, and mobile/web control surfaces.
+
+## Pages
+
+- [Home](/): Overview of AstroIntelli's embedded + AI capabilities.
+- [Services](/services): Eight service domains across embedded, Edge AI, AIoT, cloud, mobile, automation and healthcare.
+- [Training](/training): Project-based workshops on ESP32, TinyML, Edge AI and AIoT.
+- [About](/about): Mission, principles and how AstroIntelli operates.
+- [Contact](/contact): Start a project or request a workshop.
+
+## Services
+
+- [Embedded Systems Development](/services/embedded-systems): ESP32, STM32, firmware and sensor integration.
+- [Edge AI & TinyML](/services/edge-ai-tinyml): ML models deployed directly on microcontrollers.
+- [AIoT — AI of Things](/services/aiot): Connected, intelligent device platforms.
+- [Product Development & Prototyping](/services/product-development): Concept to working MVP hardware.
+- [Cloud & Backend Development](/services/cloud-backend): Scalable backends for connected device fleets.
+- [Mobile & Web Applications](/services/mobile-web): Apps and dashboards for smart devices.
+- [Industrial Automation](/services/industrial-automation): Predictive maintenance and condition monitoring.
+- [Healthcare Technology](/services/healthcare): Connected medical and remote monitoring devices.
