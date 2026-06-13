@@ -65,13 +65,19 @@
   * {
     border-color: var(--color-border);
   }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4, h5 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     font-family: var(--font-display);
     letter-spacing: -0.025em;
   }
@@ -80,24 +86,31 @@
 @utility text-brand {
   color: #000DFF;
 }
+
 @utility bg-brand {
   background-color: #000DFF;
 }
+
 @utility border-brand {
   border-color: #000DFF;
 }
+
 @utility ring-brand {
   --tw-ring-color: #000DFF;
 }
+
 @utility bg-brand-soft {
   background-color: var(--brand-soft);
 }
+
 @utility bg-brand-tint {
   background-color: var(--brand-tint);
 }
+
 @utility border-brand-tint {
   border-color: color-mix(in oklab, #000DFF 30%, transparent);
 }
+
 @utility text-brand-strong {
   color: #000DFF;
   text-shadow: 0 0 1px color-mix(in oklab, #000DFF 30%, transparent);
@@ -115,25 +128,47 @@
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
+
 @utility animate-marquee {
   animation: marquee 50s linear infinite;
 }
 
 @keyframes blink-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
 }
+
 @utility animate-blink {
   animation: blink-dot 1.6s ease-in-out infinite;
 }
 
 @keyframes rise {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @utility animate-rise {
   animation: rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -144,6 +179,7 @@
   font-size: 11px;
   color: var(--muted-foreground);
 }
+
 .gtranslate-wrapper .goog-te-gadget-simple {
   background: transparent !important;
   border: 1px solid var(--border) !important;
@@ -151,7 +187,19 @@
   border-radius: 2px;
   font-size: 12px !important;
 }
-.gtranslate-wrapper img { display: none !important; }
-body { top: 0 !important; }
-.skiptranslate iframe.goog-te-banner-frame { display: none !important; }
-.goog-te-banner-frame.skiptranslate { display: none !important; }
+
+.gtranslate-wrapper img {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.skiptranslate iframe.goog-te-banner-frame {
+  display: none !important;
+}
+
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}

@@ -15,6 +15,15 @@ import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as ServicesProductDevelopmentRouteImport } from './routes/services.product-development'
+import { Route as ServicesMobileWebRouteImport } from './routes/services.mobile-web'
+import { Route as ServicesIndustrialAutomationRouteImport } from './routes/services.industrial-automation'
+import { Route as ServicesHealthcareRouteImport } from './routes/services.healthcare'
+import { Route as ServicesEmbeddedSystemsRouteImport } from './routes/services.embedded-systems'
+import { Route as ServicesEdgeAiTinymlRouteImport } from './routes/services.edge-ai-tinyml'
+import { Route as ServicesCloudBackendRouteImport } from './routes/services.cloud-backend'
+import { Route as ServicesAiotRouteImport } from './routes/services.aiot'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 
 const TrainingRoute = TrainingRouteImport.update({
@@ -47,6 +56,53 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesProductDevelopmentRoute =
+  ServicesProductDevelopmentRouteImport.update({
+    id: '/product-development',
+    path: '/product-development',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesMobileWebRoute = ServicesMobileWebRouteImport.update({
+  id: '/mobile-web',
+  path: '/mobile-web',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesIndustrialAutomationRoute =
+  ServicesIndustrialAutomationRouteImport.update({
+    id: '/industrial-automation',
+    path: '/industrial-automation',
+    getParentRoute: () => ServicesRoute,
+  } as any)
+const ServicesHealthcareRoute = ServicesHealthcareRouteImport.update({
+  id: '/healthcare',
+  path: '/healthcare',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesEmbeddedSystemsRoute = ServicesEmbeddedSystemsRouteImport.update({
+  id: '/embedded-systems',
+  path: '/embedded-systems',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesEdgeAiTinymlRoute = ServicesEdgeAiTinymlRouteImport.update({
+  id: '/edge-ai-tinyml',
+  path: '/edge-ai-tinyml',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesCloudBackendRoute = ServicesCloudBackendRouteImport.update({
+  id: '/cloud-backend',
+  path: '/cloud-backend',
+  getParentRoute: () => ServicesRoute,
+} as any)
+const ServicesAiotRoute = ServicesAiotRouteImport.update({
+  id: '/aiot',
+  path: '/aiot',
+  getParentRoute: () => ServicesRoute,
+} as any)
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -61,15 +117,32 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/training': typeof TrainingRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/services/aiot': typeof ServicesAiotRoute
+  '/services/cloud-backend': typeof ServicesCloudBackendRoute
+  '/services/edge-ai-tinyml': typeof ServicesEdgeAiTinymlRoute
+  '/services/embedded-systems': typeof ServicesEmbeddedSystemsRoute
+  '/services/healthcare': typeof ServicesHealthcareRoute
+  '/services/industrial-automation': typeof ServicesIndustrialAutomationRoute
+  '/services/mobile-web': typeof ServicesMobileWebRoute
+  '/services/product-development': typeof ServicesProductDevelopmentRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/training': typeof TrainingRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/services/aiot': typeof ServicesAiotRoute
+  '/services/cloud-backend': typeof ServicesCloudBackendRoute
+  '/services/edge-ai-tinyml': typeof ServicesEdgeAiTinymlRoute
+  '/services/embedded-systems': typeof ServicesEmbeddedSystemsRoute
+  '/services/healthcare': typeof ServicesHealthcareRoute
+  '/services/industrial-automation': typeof ServicesIndustrialAutomationRoute
+  '/services/mobile-web': typeof ServicesMobileWebRoute
+  '/services/product-development': typeof ServicesProductDevelopmentRoute
+  '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +153,15 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/training': typeof TrainingRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/services/aiot': typeof ServicesAiotRoute
+  '/services/cloud-backend': typeof ServicesCloudBackendRoute
+  '/services/edge-ai-tinyml': typeof ServicesEdgeAiTinymlRoute
+  '/services/embedded-systems': typeof ServicesEmbeddedSystemsRoute
+  '/services/healthcare': typeof ServicesHealthcareRoute
+  '/services/industrial-automation': typeof ServicesIndustrialAutomationRoute
+  '/services/mobile-web': typeof ServicesMobileWebRoute
+  '/services/product-development': typeof ServicesProductDevelopmentRoute
+  '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,15 +173,32 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/training'
     | '/services/$slug'
+    | '/services/aiot'
+    | '/services/cloud-backend'
+    | '/services/edge-ai-tinyml'
+    | '/services/embedded-systems'
+    | '/services/healthcare'
+    | '/services/industrial-automation'
+    | '/services/mobile-web'
+    | '/services/product-development'
+    | '/services/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/contact'
-    | '/services'
     | '/sitemap.xml'
     | '/training'
     | '/services/$slug'
+    | '/services/aiot'
+    | '/services/cloud-backend'
+    | '/services/edge-ai-tinyml'
+    | '/services/embedded-systems'
+    | '/services/healthcare'
+    | '/services/industrial-automation'
+    | '/services/mobile-web'
+    | '/services/product-development'
+    | '/services'
   id:
     | '__root__'
     | '/'
@@ -109,6 +208,15 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/training'
     | '/services/$slug'
+    | '/services/aiot'
+    | '/services/cloud-backend'
+    | '/services/edge-ai-tinyml'
+    | '/services/embedded-systems'
+    | '/services/healthcare'
+    | '/services/industrial-automation'
+    | '/services/mobile-web'
+    | '/services/product-development'
+    | '/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -164,6 +272,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services/': {
+      id: '/services/'
+      path: '/'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/product-development': {
+      id: '/services/product-development'
+      path: '/product-development'
+      fullPath: '/services/product-development'
+      preLoaderRoute: typeof ServicesProductDevelopmentRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/mobile-web': {
+      id: '/services/mobile-web'
+      path: '/mobile-web'
+      fullPath: '/services/mobile-web'
+      preLoaderRoute: typeof ServicesMobileWebRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/industrial-automation': {
+      id: '/services/industrial-automation'
+      path: '/industrial-automation'
+      fullPath: '/services/industrial-automation'
+      preLoaderRoute: typeof ServicesIndustrialAutomationRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/healthcare': {
+      id: '/services/healthcare'
+      path: '/healthcare'
+      fullPath: '/services/healthcare'
+      preLoaderRoute: typeof ServicesHealthcareRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/embedded-systems': {
+      id: '/services/embedded-systems'
+      path: '/embedded-systems'
+      fullPath: '/services/embedded-systems'
+      preLoaderRoute: typeof ServicesEmbeddedSystemsRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/edge-ai-tinyml': {
+      id: '/services/edge-ai-tinyml'
+      path: '/edge-ai-tinyml'
+      fullPath: '/services/edge-ai-tinyml'
+      preLoaderRoute: typeof ServicesEdgeAiTinymlRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/cloud-backend': {
+      id: '/services/cloud-backend'
+      path: '/cloud-backend'
+      fullPath: '/services/cloud-backend'
+      preLoaderRoute: typeof ServicesCloudBackendRouteImport
+      parentRoute: typeof ServicesRoute
+    }
+    '/services/aiot': {
+      id: '/services/aiot'
+      path: '/aiot'
+      fullPath: '/services/aiot'
+      preLoaderRoute: typeof ServicesAiotRouteImport
+      parentRoute: typeof ServicesRoute
+    }
     '/services/$slug': {
       id: '/services/$slug'
       path: '/$slug'
@@ -176,10 +347,28 @@ declare module '@tanstack/react-router' {
 
 interface ServicesRouteChildren {
   ServicesSlugRoute: typeof ServicesSlugRoute
+  ServicesAiotRoute: typeof ServicesAiotRoute
+  ServicesCloudBackendRoute: typeof ServicesCloudBackendRoute
+  ServicesEdgeAiTinymlRoute: typeof ServicesEdgeAiTinymlRoute
+  ServicesEmbeddedSystemsRoute: typeof ServicesEmbeddedSystemsRoute
+  ServicesHealthcareRoute: typeof ServicesHealthcareRoute
+  ServicesIndustrialAutomationRoute: typeof ServicesIndustrialAutomationRoute
+  ServicesMobileWebRoute: typeof ServicesMobileWebRoute
+  ServicesProductDevelopmentRoute: typeof ServicesProductDevelopmentRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
 const ServicesRouteChildren: ServicesRouteChildren = {
   ServicesSlugRoute: ServicesSlugRoute,
+  ServicesAiotRoute: ServicesAiotRoute,
+  ServicesCloudBackendRoute: ServicesCloudBackendRoute,
+  ServicesEdgeAiTinymlRoute: ServicesEdgeAiTinymlRoute,
+  ServicesEmbeddedSystemsRoute: ServicesEmbeddedSystemsRoute,
+  ServicesHealthcareRoute: ServicesHealthcareRoute,
+  ServicesIndustrialAutomationRoute: ServicesIndustrialAutomationRoute,
+  ServicesMobileWebRoute: ServicesMobileWebRoute,
+  ServicesProductDevelopmentRoute: ServicesProductDevelopmentRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
 }
 
 const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
@@ -197,3 +386,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

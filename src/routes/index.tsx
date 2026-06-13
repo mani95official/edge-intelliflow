@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight, Cpu, Brain, Radio, Wrench, Cloud, Smartphone, Factory, HeartPulse } from "lucide-react";
 import { services } from "@/lib/services-data";
+import { useState, useEffect } from "react";
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, ReferenceLine } from "recharts";
 
 const SITE_URL = "https://edge-intelliflow.lovable.app";
 
@@ -51,6 +53,62 @@ const marqueeItems = [
 ];
 
 function HomePage() {
+  const [profile, setProfile] = useState<"vibration" | "ecg" | "gas">("vibration");
+  const [anomaly, setAnomaly] = useState(false);
+  const [sliderVal, setSliderVal] = useState(1800);
+  const [chartData, setChartData] = useState<{ time: number; val: number }[]>([]);
+
+  useEffect(() => {
+    if (profile === "vibration") {
+      setSliderVal(1800);
+    } else if (profile === "ecg") {
+      setSliderVal(72);
+    } else {
+      setSliderVal(50);
+    }
+    setAnomaly(false);
+  }, [profile]);
+
+  useEffect(() => {
+    let tick = 0;
+    const interval = setInterval(() => {
+      tick++;
+      setChartData((prev) => {
+        const next = [...prev];
+        if (next.length > 25) next.shift();
+
+        let val = 0;
+        if (profile === "vibration") {
+          const baseFreq = (sliderVal / 1000) * 0.5;
+          const noise = (Math.random() - 0.5) * 0.3;
+          const anomalySpike = anomaly && tick % 4 === 0 ? (Math.random() > 0.5 ? 2.5 : -2.5) : 0;
+          val = Math.sin(tick * baseFreq) + noise + anomalySpike;
+        } else if (profile === "ecg") {
+          const bpmFactor = sliderVal / 72;
+          const cycleTicks = Math.max(5, Math.round(12 / bpmFactor));
+          const pos = tick % (anomaly ? Math.round(cycleTicks * (1.2 + Math.random() * 0.4)) : cycleTicks);
+          
+          if (pos === 0) val = 0;
+          else if (pos === 1) val = 0.1;
+          else if (pos === 3) val = -0.3;
+          else if (pos === 4) val = 3.0;
+          else if (pos === 5) val = -0.8;
+          else if (pos === 7) val = 0.4;
+          else val = 0;
+          val += (Math.random() - 0.5) * 0.1;
+        } else {
+          const targetGas = sliderVal + (anomaly ? 400 : 0);
+          val = targetGas + (Math.random() - 0.5) * (targetGas * 0.05);
+        }
+
+        next.push({ time: tick, val: parseFloat(val.toFixed(2)) });
+        return next;
+      });
+    }, 150);
+
+    return () => clearInterval(interval);
+  }, [profile, anomaly, sliderVal]);
+
   return (
     <>
       {/* HERO */}
@@ -132,8 +190,7 @@ function HomePage() {
               return (
                 <Link
                   key={s.slug}
-                  to="/services/$slug"
-                  params={{ slug: s.slug }}
+                  to={`/services/${s.slug}` as any}
                   className="group relative flex flex-col gap-6 bg-background p-8 transition-colors hover:bg-brand hover:text-background"
                 >
                   <div className="flex items-center justify-between">
@@ -154,12 +211,205 @@ function HomePage() {
         </div>
       </section>
 
+      {/* INTERACTIVE PLAYGROUND */}
+      <section className="border-b border-border bg-black text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30" />
+        
+        <div className="relative mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+          <div className="text-xs font-mono uppercase tracking-widest text-brand">
+            § 03 — TinyML Playground
+          </div>
+          <h2 className="mt-4 text-4xl font-semibold tracking-tight md:text-6xl">
+            See our <span className="text-brand">Edge AI</span> in action.
+          </h2>
+          <p className="mt-4 max-w-2xl text-muted-foreground text-sm md:text-base">
+            Toggle anomaly modes and change inputs on simulated STM32/ESP32 microcontrollers to see real-time inference on the edge.
+          </p>
+
+          <div className="mt-16 grid gap-8 lg:grid-cols-12">
+            {/* Controls Panel */}
+            <div className="lg:col-span-5 flex flex-col justify-between border border-gray-800 bg-gray-950/85 p-6 md:p-8 backdrop-blur-sm">
+              <div>
+                <div className="text-xs font-mono uppercase tracking-widest text-gray-400">Select model profile</div>
+                <div className="mt-4 flex flex-col gap-2">
+                  <button
+                    onClick={() => setProfile("vibration")}
+                    className={`flex items-center justify-between border px-4 py-3 text-left transition-all ${
+                      profile === "vibration"
+                        ? "border-brand bg-brand/10 text-white animate-pulse"
+                        : "border-gray-800 text-gray-400 hover:border-gray-700 hover:text-white"
+                    }`}
+                  >
+                    <span className="font-semibold text-sm">Industrial Vibration</span>
+                    <span className="font-mono text-xs text-brand">Anomaly Detection</span>
+                  </button>
+                  <button
+                    onClick={() => setProfile("ecg")}
+                    className={`flex items-center justify-between border px-4 py-3 text-left transition-all ${
+                      profile === "ecg"
+                        ? "border-brand bg-brand/10 text-white animate-pulse"
+                        : "border-gray-800 text-gray-400 hover:border-gray-700 hover:text-white"
+                    }`}
+                  >
+                    <span className="font-semibold text-sm">Cardiac ECG Monitor</span>
+                    <span className="font-mono text-xs text-brand">Arrhythmia Classify</span>
+                  </button>
+                  <button
+                    onClick={() => setProfile("gas")}
+                    className={`flex items-center justify-between border px-4 py-3 text-left transition-all ${
+                      profile === "gas"
+                        ? "border-brand bg-brand/10 text-white animate-pulse"
+                        : "border-gray-800 text-gray-400 hover:border-gray-700 hover:text-white"
+                    }`}
+                  >
+                    <span className="font-semibold text-sm">Environment Monitor</span>
+                    <span className="font-mono text-xs text-brand">Gas Leakage</span>
+                  </button>
+                </div>
+
+                <div className="mt-8 border-t border-gray-800 pt-6">
+                  <div className="text-xs font-mono uppercase tracking-widest text-gray-400">Model specifications</div>
+                  <div className="mt-4 grid grid-cols-2 gap-4 font-mono">
+                    <div className="border border-gray-900 bg-gray-900/40 p-3">
+                      <div className="text-[10px] text-gray-500 uppercase">Latency</div>
+                      <div className="mt-1 text-sm font-semibold text-white">
+                        {profile === "vibration" ? "12 ms" : profile === "ecg" ? "34 ms" : "2 ms"}
+                      </div>
+                    </div>
+                    <div className="border border-gray-900 bg-gray-900/40 p-3">
+                      <div className="text-[10px] text-gray-500 uppercase">RAM Usage</div>
+                      <div className="mt-1 text-sm font-semibold text-white">
+                        {profile === "vibration" ? "8.4 KB" : profile === "ecg" ? "16.2 KB" : "1.2 KB"}
+                      </div>
+                    </div>
+                    <div className="border border-gray-900 bg-gray-900/40 p-3">
+                      <div className="text-[10px] text-gray-500 uppercase">Flash Footprint</div>
+                      <div className="mt-1 text-sm font-semibold text-white">
+                        {profile === "vibration" ? "24 KB" : profile === "ecg" ? "48 KB" : "8 KB"}
+                      </div>
+                    </div>
+                    <div className="border border-gray-900 bg-gray-900/40 p-3">
+                      <div className="text-[10px] text-gray-500 uppercase">Accuracy</div>
+                      <div className="mt-1 text-sm font-semibold text-brand">
+                        {profile === "vibration" ? "98.2%" : profile === "ecg" ? "97.5%" : "99.1%"}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 border-t border-gray-800 pt-6">
+                <div className="flex items-center justify-between text-xs font-mono uppercase tracking-widest text-gray-400">
+                  <span>Parameter Controls</span>
+                  <span className="text-brand font-semibold">
+                    {profile === "vibration" ? `${sliderVal} RPM` : profile === "ecg" ? `${sliderVal} BPM` : `${sliderVal} ppm`}
+                  </span>
+                </div>
+                <div className="mt-4">
+                  <input
+                    type="range"
+                    min={profile === "vibration" ? 1000 : profile === "ecg" ? 50 : 10}
+                    max={profile === "vibration" ? 5000 : profile === "ecg" ? 150 : 1000}
+                    value={sliderVal}
+                    onChange={(e) => setSliderVal(Number(e.target.value))}
+                    className="w-full accent-brand bg-gray-800 cursor-pointer h-1 rounded-lg"
+                  />
+                </div>
+                <div className="mt-6 flex items-center justify-between border border-gray-900 bg-gray-900/40 p-4">
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold">Trigger Anomaly State</span>
+                    <span className="text-[10px] font-mono text-gray-500">Simulate fault conditions</span>
+                  </div>
+                  <button
+                    onClick={() => setAnomaly(!anomaly)}
+                    className={`px-4 py-2 text-xs font-mono transition-colors border cursor-pointer ${
+                      anomaly 
+                        ? "bg-red-500/20 border-red-500 text-red-400 font-semibold" 
+                        : "border-gray-700 hover:border-gray-600 text-gray-300"
+                    }`}
+                  >
+                    {anomaly ? "ACTIVE" : "INACTIVE"}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Display / Oscilloscope Panel */}
+            <div className="lg:col-span-7 border border-gray-800 bg-black flex flex-col p-6 font-mono">
+              <div className="flex items-center justify-between border-b border-gray-900 pb-4 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="size-2 bg-green-500 rounded-full animate-pulse" />
+                  <span className="text-gray-400">DEVICE_STATE:</span>
+                  <span className="text-green-400 font-semibold">ONLINE</span>
+                </div>
+                <div className="text-gray-500">TARGET: ARM CORTEX-M4</div>
+              </div>
+
+              <div className="h-64 my-6 bg-gray-950/40 border border-gray-900 p-2 relative flex items-center justify-center">
+                {chartData.length === 0 ? (
+                  <div className="text-gray-600 text-sm">CALIBRATING EDGE NODE...</div>
+                ) : (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                      <XAxis dataKey="time" hide />
+                      <YAxis domain={profile === "gas" ? [0, 1200] : [-3.5, 3.5]} hide />
+                      <Line
+                        type="monotone"
+                        dataKey="val"
+                        stroke={anomaly ? "#ef4444" : "#10b981"}
+                        strokeWidth={2}
+                        dot={false}
+                        isAnimationActive={false}
+                      />
+                      {profile === "gas" && (
+                        <ReferenceLine y={800} stroke="#ef4444" strokeDasharray="3 3" label={{ value: "THRESHOLD", fill: "#ef4444", fontSize: 10, position: "top" }} />
+                      )}
+                    </LineChart>
+                  </ResponsiveContainer>
+                )}
+                
+                {anomaly && (
+                  <div className="absolute top-4 right-4 bg-red-600 text-white text-[10px] px-2 py-1 uppercase tracking-widest font-semibold border border-red-400 animate-pulse">
+                    [!] ANOMALY_ALERT
+                  </div>
+                )}
+              </div>
+
+              <div className="mt-auto border-t border-gray-900 pt-4 grid grid-cols-3 gap-2 text-xs">
+                <div>
+                  <span className="text-gray-500 block uppercase text-[10px]">ML Inference</span>
+                  <span className={`font-semibold text-sm ${anomaly ? "text-red-500 animate-pulse" : "text-brand"}`}>
+                    {profile === "vibration" 
+                      ? (anomaly ? "FAULT_DETECTED" : "BEARING_STABLE")
+                      : profile === "ecg"
+                      ? (anomaly ? "ARRHYTHMIA" : "SINUS_RHYTHM")
+                      : (anomaly ? "GAS_LEAK_ALERT" : "AIR_QUALITY_OK")}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-gray-500 block uppercase text-[10px]">CPU Load</span>
+                  <span className="text-white text-sm font-semibold">
+                    {profile === "vibration" ? (anomaly ? "14.2%" : "8.1%") : profile === "ecg" ? "18.5%" : "2.1%"}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-gray-500 block uppercase text-[10px]">Confidence</span>
+                  <span className="text-white text-sm font-semibold">
+                    {anomaly ? "99.4%" : "97.8%"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* WHY */}
       <section className="border-b border-border bg-secondary">
         <div className="mx-auto grid max-w-7xl gap-16 px-5 py-24 md:grid-cols-12 md:px-8 md:py-32">
           <div className="md:col-span-5">
             <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
-              <span className="text-brand">§</span> 03 — Why AstroIntelli
+              <span className="text-brand">§</span> 04 — Why AstroIntelli
             </div>
             <h2 className="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">
               We sit at the intersection of <span className="text-brand">embedded</span> and <span className="italic font-display">AI</span>.
