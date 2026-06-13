@@ -4,6 +4,7 @@ import { services } from "@/lib/services-data";
 import { useState, useEffect } from "react";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis } from "recharts";
 import { ServicesSidebar } from "@/components/services-sidebar";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 
 const SITE_URL = "https://astrointelli.com";
 const s = services.find((x) => x.slug === "healthcare")!;
@@ -39,6 +40,18 @@ export const Route = createFileRoute("/services/healthcare")({
             areaServed: s.industries,
             url,
           }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: s.faqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.q,
+              acceptedAnswer: { "@type": "Answer", text: faq.a }
+            }))
+          })
         },
       ],
     };
@@ -287,6 +300,26 @@ function HealthcareDetail() {
               ))}
             </ol>
           </div>
+
+          {/* FAQ SECTION */}
+          {s.faqs && s.faqs.length > 0 && (
+            <div className="border-t border-border pt-10">
+              <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">§ FAQ</div>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">Frequently Asked Questions</h2>
+              <Accordion type="single" collapsible className="mt-8 w-full border-t border-border">
+                {s.faqs.map((faq, i) => (
+                  <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border">
+                    <AccordionTrigger className="text-base font-semibold hover:text-brand transition-colors py-4">
+                      {faq.q}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-sm leading-relaxed text-muted-foreground pb-4">
+                      {faq.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          )}
 
           {/* CTA SECTION */}
           <div className="bg-foreground text-background p-8 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-6">

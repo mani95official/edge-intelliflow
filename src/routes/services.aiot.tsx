@@ -4,6 +4,8 @@ import { services } from "@/lib/services-data";
 import { useState, useEffect } from "react";
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis } from "recharts";
 import { ServicesSidebar } from "@/components/services-sidebar";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+
 
 const SITE_URL = "https://astrointelli.com";
 const s = services.find((x) => x.slug === "aiot")!;
@@ -39,6 +41,18 @@ export const Route = createFileRoute("/services/aiot")({
             areaServed: s.industries,
             url,
           }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: s.faqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.q,
+              acceptedAnswer: { "@type": "Answer", text: faq.a }
+            }))
+          })
         },
       ],
     };
@@ -317,7 +331,7 @@ function AiotDetail() {
           {/* CTA SECTION */}
           <div className="bg-foreground text-background p-8 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-6">
             <h2 className="max-w-md text-2xl font-semibold tracking-tight md:text-3xl">
-              Start your <span className="text-brand">{s.title.split(" ")[0].toLowerCase()}</span> project.
+              Start your <span className="text-brand">{s.title.split(" ")[0].toLocaleLowerCase()}</span> project.
             </h2>
             <Link to="/contact" className="inline-flex items-center gap-2 border border-background/30 px-5 py-3 text-xs font-medium hover:bg-brand hover:border-brand shrink-0">
               Talk to engineering <ArrowUpRight className="size-3.5" />
