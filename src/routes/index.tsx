@@ -55,7 +55,8 @@ function HomePage() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-border bg-background">
-        <div className="absolute -right-32 top-1/2 hidden h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-brand/10 blur-3xl md:block" aria-hidden />
+        <div className="absolute -right-32 top-1/2 hidden h-[520px] w-[520px] -translate-y-1/2 rounded-full bg-brand/30 blur-3xl md:block" aria-hidden />
+        <div className="absolute -left-40 -top-40 hidden h-[420px] w-[420px] rounded-full bg-brand/20 blur-3xl md:block" aria-hidden />
         <div className="relative mx-auto max-w-7xl px-5 pt-20 pb-24 md:px-8 md:pt-32 md:pb-36">
           <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest text-muted-foreground animate-rise">
             <span className="inline-block size-1.5 rounded-full bg-brand animate-blink" />
@@ -86,10 +87,10 @@ function HomePage() {
             </Link>
           </div>
 
-          <div className="mt-20 grid grid-cols-2 gap-px overflow-hidden border border-border bg-border md:grid-cols-4">
+          <div className="mt-20 grid grid-cols-2 gap-px overflow-hidden border border-brand-tint bg-brand-tint/60 md:grid-cols-4">
             {stats.map((s) => (
               <div key={s.label} className="bg-background p-6">
-                <div className="font-display text-2xl font-semibold md:text-3xl">{s.value}</div>
+                <div className="font-display text-2xl font-semibold md:text-3xl text-brand">{s.value}</div>
                 <div className="mt-2 text-xs font-mono uppercase tracking-widest text-muted-foreground">{s.label}</div>
               </div>
             ))}
