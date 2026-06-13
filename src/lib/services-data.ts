@@ -29,7 +29,7 @@ export const services: Service[] = [
       "Device Optimization",
     ],
     overview:
-      "We engineer reliable, production-grade embedded systems on ESP32, STM32 and Arduino — from schematic-level decisions to OTA-ready firmware running on certified hardware.",
+      "Production-grade embedded systems on ESP32, STM32 and Arduino — from schematic decisions to OTA-ready firmware on certified hardware.",
     outcomes: [
       "Low-power firmware optimised for battery life",
       "Robust drivers for sensors, actuators and radios",
@@ -61,7 +61,7 @@ export const services: Service[] = [
       "Smart Sensor Intelligence",
     ],
     overview:
-      "We bring real-time intelligence to the device itself — training, quantising and deploying ML models that run on microcontrollers with kilobytes of RAM.",
+      "Real-time intelligence on the device — we train, quantise and deploy ML models that run on microcontrollers with kilobytes of RAM.",
     outcomes: [
       "Sub-100ms inference on MCU-class hardware",
       "Models quantised to int8 with minimal accuracy loss",
@@ -93,7 +93,7 @@ export const services: Service[] = [
       "Energy Monitoring Systems",
     ],
     overview:
-      "AIoT joins connected hardware, edge intelligence and cloud orchestration into a single product. We architect the whole stack so devices learn, adapt and scale to fleets.",
+      "AIoT joins connected hardware, edge intelligence and cloud orchestration. We architect the whole stack so devices learn, adapt and scale.",
     outcomes: [
       "End-to-end device-to-cloud-to-dashboard pipelines",
       "Predictive maintenance with measurable downtime reduction",
@@ -155,7 +155,7 @@ export const services: Service[] = [
       "Analytics Dashboards",
     ],
     overview:
-      "Backends built for connected hardware: telemetry ingestion at scale, device management, secure APIs and dashboards that operations teams actually use.",
+      "Backends for connected hardware: telemetry ingestion at scale, device management, secure APIs and dashboards operations teams actually use.",
     outcomes: [
       "Telemetry pipelines handling thousands of devices",
       "Secure REST + MQTT APIs with role-based access",
@@ -185,7 +185,7 @@ export const services: Service[] = [
       "Reporting & Analytics",
     ],
     overview:
-      "The control surface for your hardware: cross-platform mobile apps and real-time web dashboards that pair, monitor and control connected devices.",
+      "Cross-platform mobile apps and real-time web dashboards that pair, monitor and control your connected hardware.",
     outcomes: [
       "Cross-platform mobile apps from a single codebase",
       "Real-time dashboards with live device telemetry",
@@ -216,7 +216,7 @@ export const services: Service[] = [
       "Asset Tracking",
     ],
     overview:
-      "Retrofit and greenfield automation that turns machines into data sources — and data into uptime. Predictive maintenance, condition monitoring and production analytics on shop floors.",
+      "Automation that turns machines into data and data into uptime — predictive maintenance, condition monitoring and production analytics.",
     outcomes: [
       "Reduced unplanned downtime",
       "Live OEE and production KPIs",
@@ -246,7 +246,7 @@ export const services: Service[] = [
       "Remote Health Monitoring",
     ],
     overview:
-      "Connected medical and wellness devices — from smart IV monitors to remote patient monitoring — engineered with reliability, privacy and clinical workflow in mind.",
+      "Connected medical and wellness devices — from smart IV monitors to remote patient monitoring — engineered for reliability and privacy.",
     outcomes: [
       "Reliable monitoring with clinical-grade signal quality",
       "Remote patient monitoring with caregiver dashboards",
