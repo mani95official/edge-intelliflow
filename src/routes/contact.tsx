@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Mail, MapPin, ArrowUpRight, Loader2 } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowUpRight, Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { HUBSPOT_CONFIG, submitHubSpotForm } from "@/lib/hubspot-service";
 
 const SITE_URL = "https://astrointelli.com";
@@ -28,6 +31,7 @@ export const Route = createFileRoute("/contact")({
           name: "Contact AstroIntelli",
           url: SITE_URL + "/contact",
           email: "hello@astrointelli.com",
+          telephone: "+91-87546-33465",
         }),
       },
     ],
@@ -35,39 +39,57 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
-const interests = ["Embedded", "Edge AI / TinyML", "AIoT", "Cloud / Backend", "Mobile / Web", "Training"];
+const interestsList = ["Embedded", "Edge AI / TinyML", "AIoT", "Cloud / Backend", "Mobile / Web", "Training"];
+
+const contactSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
+  email: z.string().email({ message: "Please enter a valid email address." }),
+  company: z.string().optional(),
+  interests: z.array(z.string()).optional(),
+  message: z.string().min(10, { message: "Message must be at least 10 characters." }),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      company: "",
+      interests: [] as string[],
+      message: "",
+    },
+  });
+
+  async function onSubmit(values: ContactFormData) {
     setIsSubmitting(true);
     setErrorMsg(null);
 
-    const formData = new FormData(e.currentTarget);
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const company = formData.get("company") as string;
-    const message = formData.get("message") as string;
-    const selectedInterests = formData.getAll("interest") as string[];
-
-    const nameParts = name.trim().split(/\s+/);
+    const nameParts = values.name.trim().split(/\s+/);
     const firstname = nameParts[0] || "";
     const lastname = nameParts.slice(1).join(" ") || "";
 
+    const selectedInterests = values.interests || [];
     const interestsStr = selectedInterests.join(", ");
     const fullMessage = interestsStr
-      ? `[Areas of Interest: ${interestsStr}]\n\n${message}`
-      : message;
+      ? `[Areas of Interest: ${interestsStr}]\n\n${values.message}`
+      : values.message;
 
     const payload = {
-      email,
+      email: values.email,
       firstname,
       lastname,
-      company,
+      company: values.company,
       message: fullMessage,
       interests: selectedInterests,
     };
@@ -110,6 +132,13 @@ function ContactPage() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
+                <Phone className="mt-1 size-4 text-brand" />
+                <div>
+                  <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Phone</div>
+                  <a href="tel:+918754633465" className="text-lg font-medium hover:text-brand">+91 87546 33465</a>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
                 <MapPin className="mt-1 size-4 text-brand" />
                 <div>
                   <div className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Location</div>
@@ -135,22 +164,70 @@ function ContactPage() {
               </div>
             ) : (
               <form
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
                 className="grid gap-6"
+                noValidate
               >
                 <div className="grid gap-6 md:grid-cols-2">
-                  <Field label="Name" name="name" placeholder="Your name" required disabled={isSubmitting} />
-                  <Field label="Email" name="email" type="email" placeholder="you@company.com" required disabled={isSubmitting} />
+                  <div>
+                    <label htmlFor="contact-name" className="text-xs font-mono uppercase tracking-widest text-muted-foreground block mb-1">Name *</label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      placeholder="Your name"
+                      disabled={isSubmitting}
+                      className={`w-full border bg-background p-4 text-base outline-none transition-colors focus:ring-1 focus:ring-brand disabled:opacity-50 text-foreground ${
+                        errors.name ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-border focus:border-brand"
+                      }`}
+                      {...register("name")}
+                    />
+                    {errors.name && (
+                      <span className="text-red-500 text-xs mt-1 block font-mono">{errors.name.message}</span>
+                    )}
+                  </div>
+                  <div>
+                    <label htmlFor="contact-email" className="text-xs font-mono uppercase tracking-widest text-muted-foreground block mb-1">Email *</label>
+                    <input
+                      id="contact-email"
+                      type="email"
+                      placeholder="you@company.com"
+                      disabled={isSubmitting}
+                      className={`w-full border bg-background p-4 text-base outline-none transition-colors focus:ring-1 focus:ring-brand disabled:opacity-50 text-foreground ${
+                        errors.email ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-border focus:border-brand"
+                      }`}
+                      {...register("email")}
+                    />
+                    {errors.email && (
+                      <span className="text-red-500 text-xs mt-1 block font-mono">{errors.email.message}</span>
+                    )}
+                  </div>
                 </div>
-                <Field label="Company" name="company" placeholder="Company / Organisation" disabled={isSubmitting} />
 
                 <div>
-                  <label className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Interested in</label>
+                  <label htmlFor="contact-company" className="text-xs font-mono uppercase tracking-widest text-muted-foreground block mb-1">Company</label>
+                  <input
+                    id="contact-company"
+                    type="text"
+                    placeholder="Company / Organisation"
+                    disabled={isSubmitting}
+                    className="w-full border border-border bg-background p-4 text-base outline-none focus:border-brand focus:ring-1 focus:ring-brand disabled:opacity-50 text-foreground"
+                    {...register("company")}
+                  />
+                </div>
+
+                <div>
+                  <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Interested in</span>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {interests.map((i) => (
+                    {interestsList.map((i) => (
                       <label key={i} className="cursor-pointer">
-                        <input type="checkbox" name="interest" value={i} className="peer sr-only" disabled={isSubmitting} />
-                        <span className="inline-block border border-border px-4 py-2 text-sm transition-colors peer-checked:bg-brand peer-checked:text-white peer-checked:border-brand hover:border-foreground peer-disabled:opacity-50">
+                        <input
+                          type="checkbox"
+                          value={i}
+                          className="peer sr-only"
+                          disabled={isSubmitting}
+                          {...register("interests")}
+                        />
+                        <span className="inline-block border border-border px-4 py-2 text-sm transition-colors peer-checked:bg-brand peer-checked:text-white peer-checked:border-brand hover:border-foreground peer-disabled:opacity-50 text-foreground bg-background">
                           {i}
                         </span>
                       </label>
@@ -159,20 +236,24 @@ function ContactPage() {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Project brief</label>
+                  <label htmlFor="message" className="text-xs font-mono uppercase tracking-widest text-muted-foreground block mb-1">Project brief *</label>
                   <textarea
                     id="message"
-                    name="message"
                     rows={6}
-                    required
                     disabled={isSubmitting}
                     placeholder="Tell us about the product, problem, or workshop you have in mind."
-                    className="mt-2 w-full border border-border bg-background p-4 text-base outline-none focus:border-brand focus:ring-1 focus:ring-brand disabled:opacity-50"
+                    className={`w-full border bg-background p-4 text-base outline-none transition-colors focus:ring-1 focus:ring-brand disabled:opacity-50 text-foreground ${
+                      errors.message ? "border-red-500 focus:border-red-500 focus:ring-red-500" : "border-border focus:border-brand"
+                    }`}
+                    {...register("message")}
                   />
+                  {errors.message && (
+                    <span className="text-red-500 text-xs mt-1 block font-mono">{errors.message.message}</span>
+                  )}
                 </div>
 
                 {errorMsg && (
-                  <div className="border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-400 animate-fade-in">
+                  <div className="border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-400 animate-fade-in font-mono">
                     {errorMsg}
                   </div>
                 )}
@@ -200,22 +281,5 @@ function ContactPage() {
         </div>
       </section>
     </>
-  );
-}
-
-function Field({ label, name, type = "text", placeholder, required, disabled }: { label: string; name: string; type?: string; placeholder?: string; required?: boolean; disabled?: boolean }) {
-  return (
-    <div>
-      <label htmlFor={name} className="text-xs font-mono uppercase tracking-widest text-muted-foreground">{label}</label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        required={required}
-        disabled={disabled}
-        className="mt-2 w-full border border-border bg-background p-4 text-base outline-none focus:border-brand focus:ring-1 focus:ring-brand disabled:opacity-50"
-      />
-    </div>
   );
 }

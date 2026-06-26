@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GraduationCap, Cpu, Brain, Wifi, Code2, Sigma, CircuitBoard } from "lucide-react";
+import { trainingTopics as topics } from "@/lib/training-data";
 
 const SITE_URL = "https://astrointelli.com";
 
@@ -32,15 +33,6 @@ export const Route = createFileRoute("/training/")({
   }),
   component: TrainingPage,
 });
-
-const topics = [
-  { icon: Cpu, title: "ESP32 Programming", desc: "Wi-Fi, BLE, peripherals, deep sleep, OTA — production-grade firmware.", slug: "esp32-programming" },
-  { icon: CircuitBoard, title: "Embedded Systems", desc: "Architecture, RTOS basics, debugging and embedded best practices.", slug: "embedded-systems" },
-  { icon: Brain, title: "Edge AI & TinyML", desc: "Train, quantize, and deploy models that run on microcontrollers.", slug: "edge-ai-tinyml" },
-  { icon: Wifi, title: "AIoT Development", desc: "End-to-end: device → cloud → dashboard with intelligence at every layer.", slug: "aiot-development" },
-  { icon: Code2, title: "Python for IoT", desc: "Backends, scripting, data pipelines and rapid IoT prototyping.", slug: "python-for-iot" },
-  { icon: Sigma, title: "ML on Microcontrollers", desc: "Hands-on projects: anomaly detection, gesture, keyword spotting.", slug: "ml-on-microcontrollers" },
-];
 
 function TrainingPage() {
   return (

@@ -14,7 +14,9 @@ export async function submitHubSpotForm(
   data: HubSpotSubmissionData
 ): Promise<boolean> {
   const portalId = HUBSPOT_CONFIG.portalId;
-  const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
+  const region = HUBSPOT_CONFIG.region;
+  const baseUrl = region ? `api-${region}.hsforms.com` : "api.hsforms.com";
+  const url = `https://${baseUrl}/submissions/v3/integration/submit/${portalId}/${formId}`;
 
   // Map data to fields array
   const fields = Object.entries(data).map(([name, value]) => {

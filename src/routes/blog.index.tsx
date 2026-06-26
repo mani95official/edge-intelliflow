@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Cpu, Brain, Activity, Settings, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { blogArticles as articles } from "@/lib/blog-data";
 
 const SITE_URL = "https://astrointelli.com";
 
@@ -23,69 +24,6 @@ export const Route = createFileRoute("/blog/")({
 });
 
 const categories = ["All", "Edge AI", "AIoT", "Healthcare", "Industrial"];
-
-const articles = [
-  {
-    slug: "tinyml-hardware-selection-guide",
-    title: "Choosing the Right Hardware for TinyML: ESP32 vs. STM32 vs. Nordic nRF52",
-    subtitle: "A data-driven guide mapping flash memory limits, RAM footprints, and hardware arithmetic acceleration options for embedded machine learning.",
-    category: "Edge AI",
-    icon: Brain,
-    date: "June 13, 2026",
-    readTime: "6 min read",
-    summary: "Choosing the wrong microcontroller for your Edge AI product can delay shipping by months or drive unit costs to unsustainable levels. Here is a technical breakdown of the top 3 silicon choices for TinyML execution."
-  },
-  {
-    slug: "python-to-cpp-firmware-migration",
-    title: "Porting Python ML Models to C++ for Embedded Microcontrollers: A Practical Guide",
-    subtitle: "Transitioning from PyTorch or Keras prototypes to optimized, bare-metal C++ firmware for ARM Cortex and ESP32 chips.",
-    category: "Edge AI",
-    icon: Cpu,
-    date: "June 13, 2026",
-    readTime: "6 min read",
-    summary: "Most machine learning models are designed in Python using float32 operations. Learn the exact step-by-step pipeline to translate these prototypes into lightning-fast, static INT8 C++ arrays that run efficiently on microcontrollers."
-  },
-  {
-    slug: "edge-ai-unlocking-efficiency",
-    title: "Why Cloud-Only AI is Failing Your Hardware Products (And How Edge AI Solves It)",
-    subtitle: "High cellular bills, network latency, and server downtime are killing hardware product margins. Here is how edge intelligence changes the unit economics of IoT.",
-    category: "Edge AI",
-    icon: Brain,
-    date: "June 12, 2026",
-    readTime: "5 min read",
-    summary: "Discover why sending raw sensor streams to the cloud is unsustainable for modern hardware products, and how running deep learning inference locally on microcontrollers increases security, decreases costs, and eliminates latency."
-  },
-  {
-    slug: "enterprise-aiot-architecture",
-    title: "Architectural Blueprints for Enterprise AIoT: From Sensors to Actionable Intelligence",
-    subtitle: "Moving from basic telemetry to autonomous closed-loop control requires a unified edge-to-cloud AI pipeline.",
-    category: "AIoT",
-    icon: Cpu,
-    date: "June 08, 2026",
-    readTime: "7 min read",
-    summary: "Discover how to design and build scalable, secure, and resilient Artificial Intelligence of Things (AIoT) systems incorporating stream processing, secure OTA models, and real-time operations dashboards."
-  },
-  {
-    slug: "aiot-in-healthcare-continuous-monitoring",
-    title: "Scaling Patient Care Safely: The Critical Role of AIoT in Medical Devices",
-    subtitle: "How edge processing resolves latency, privacy, and compliance bottlenecks in continuous vitals monitoring wearables.",
-    category: "Healthcare",
-    icon: Activity,
-    date: "June 05, 2026",
-    readTime: "6 min read",
-    summary: "Medical device manufacturers face high hurdles: data privacy (HIPAA), signal noise, and life-critical latency. Learn how embedding machine learning classifiers directly on medical wearables solves these challenges."
-  },
-  {
-    slug: "industrial-aiot-predictive-maintenance",
-    title: "Stopping Catastrophic Downtime: The ROI of Industrial AIoT and Predictive Maintenance",
-    subtitle: "Avoid thousands of dollars in mechanical failure outages by deploying edge vibration and acoustic anomaly diagnostics.",
-    category: "Industrial",
-    icon: Settings,
-    date: "May 28, 2026",
-    readTime: "8 min read",
-    summary: "Discover how industrial operations leads are utilizing Edge AI sensors to detect mechanical bearing anomalies 48 hours before failure, boosting Overall Equipment Effectiveness (OEE)."
-  }
-];
 
 function BlogIndexPage() {
   const [activeCategory, setActiveCategory] = useState("All");
