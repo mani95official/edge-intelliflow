@@ -20,6 +20,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           ...blogArticles.map((a) => ({ path: `/blog/${a.slug}`, priority: "0.8" })),
           { path: "/about", priority: "0.7" },
           { path: "/contact", priority: "0.7" },
+          { path: "/landing", priority: "0.8" },
           { path: "/privacy", priority: "0.5" },
           { path: "/terms", priority: "0.5" },
         ];
